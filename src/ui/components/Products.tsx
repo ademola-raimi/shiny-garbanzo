@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
 // import ButtonMd from "./ButtonMd";
+import Link from 'next/link';
 import { Card, CardContent, Typography, Grid, CardMedia, Box } from "@mui/material";
 
 const ContainerWrapper = styled("div")({
@@ -93,17 +94,19 @@ const Container = (): JSX.Element => {
       <Grid container spacing={2}>
       {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
         <Grid key={item} item xs={12} sm={6} md={4} lg={3}>
-          <StyledCard>
-            <StyledCardMedia image={`/icons/product-test.svg`} />
-            <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 25, paddingBottom: 35, paddingLeft: 25, position: "relative", width: "100%", flex: "0 0 auto" }}>
-              <StyledTypography variant="h5">Graphic Design</StyledTypography>
-              <StyledLink variant="subtitle1">English Department</StyledLink>
-              <StyledPrice>
-                <Typography variant="h5" style={{ color: "grey" }}>$16.48</Typography>
-                <Typography variant="h5" style={{ color: "blue" }}>$6.48</Typography>
-              </StyledPrice>
-            </CardContent>
-          </StyledCard>
+            <Link href={`/products/${item}`} passHref>
+                <StyledCard>
+                    <StyledCardMedia image={`/icons/product-test.svg`} />
+                    <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 25, paddingBottom: 35, paddingLeft: 25, position: "relative", width: "100%", flex: "0 0 auto" }}>
+                    <StyledTypography variant="h5">Graphic Design</StyledTypography>
+                    <StyledLink variant="subtitle1">English Department</StyledLink>
+                    <StyledPrice>
+                        <Typography variant="h5" style={{ color: "grey" }}>$16.48</Typography>
+                        <Typography variant="h5" style={{ color: "blue" }}>$6.48</Typography>
+                    </StyledPrice>
+                    </CardContent>
+                </StyledCard>
+            </Link>
         </Grid>
       ))}
     </Grid>

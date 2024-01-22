@@ -14,11 +14,6 @@ import Action from '../ui/components/Action';
 import Testimonials from '../ui/components/Testimonials';
 import Products from '../ui/components/Products';
 
-/**
- * A simple home page that displays User Card and some other cards for no reason.
- *
- * @constructor
- */
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
