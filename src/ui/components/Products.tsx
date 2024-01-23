@@ -1,8 +1,81 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { styled } from "@mui/system";
-// import ButtonMd from "./ButtonMd";
 import Link from 'next/link';
-import { Card, CardContent, Typography, Grid, CardMedia, Box } from "@mui/material";
+import { Card, CardContent, Typography, Grid, CardMedia, Box, Button } from "@mui/material";
+import { getCurrentPrice } from "../../utils";
+
+const Products = (): JSX.Element => {
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hideLoadMore, setHideLoadMore] = useState(false);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`https://dummyjson.com/products?page=${page}&limit=10`);
+      const data = await response.json();
+      const _products = data.products || [];
+      console.log(data);
+      if (data.total === products.length) setHideLoadMore(true);
+      setProducts((prevProducts) => [...prevProducts, ..._products]);
+      setPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []); // Fetch products on component mount
+
+  const handleLoadMore = () => {
+    fetchProducts();
+  };
+
+  return (
+    <ContainerWrapper>
+      <SectionWrapper>
+        <FeaturedText>Featured Products</FeaturedText>
+        <BestsellerText>BESTSELLER PRODUCTS</BestsellerText>
+        <ParagraphText>
+          Problems trying to resolve the conflict between
+        </ParagraphText>
+      </SectionWrapper>
+      <Grid container spacing={2}>
+      {products?.map((item) => (
+        <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+            <Link href={`/products/${item.id}`} passHref>
+                <StyledCard>
+                    <StyledCardMedia image={`${item.thumbnail}`} />
+                    <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 25, paddingBottom: 35, paddingLeft: 25, position: "relative", width: "100%", flex: "0 0 auto" }}>
+                    <StyledTypography variant="h5">{item.title}</StyledTypography>
+                    <StyledLink variant="subtitle1">{item.category}</StyledLink>
+                    <StyledPrice>
+                        <Typography variant="h5" style={{ color: "grey" }}>${item.price}</Typography>
+                        <Typography variant="h5" style={{ color: "blue" }}>${getCurrentPrice(item.price, item.discountPercentage)}</Typography>
+                    </StyledPrice>
+                    </CardContent>
+                </StyledCard>
+            </Link>
+        </Grid>
+      ))}
+    </Grid>
+      {!hideLoadMore && (
+        <Button
+          variant="outlined"
+          onClick={handleLoadMore}
+          disabled={loading}
+        >
+          LOAD MORE PRODUCTS
+        </Button>
+      )}
+    </ContainerWrapper>
+  );
+};
+
 
 const ContainerWrapper = styled("div")({
   display: "flex",
@@ -49,7 +122,8 @@ const ParagraphText = styled("p")({
 const StyledCard = styled(Card)({
     maxWidth: 183,
     margin: "0 10px",
-    backgroundColor: "lightblue",
+    // backgroundColor: "lightblue",
+    boxShadow: "none",
   });
   
   const StyledCardMedia = styled(CardMedia)({
@@ -74,57 +148,4 @@ const StyledCard = styled(Card)({
     padding: "3px 5px",
   });
 
-const ResponsiveButtonMd = styled("button")({
-  width: "100%",
-  alignSelf: "center",
-  flex: "0 0 auto",
-});
-
-
-const Container = (): JSX.Element => {
-  return (
-    <ContainerWrapper>
-      <SectionWrapper>
-        <FeaturedText>Featured Products</FeaturedText>
-        <BestsellerText>BESTSELLER PRODUCTS</BestsellerText>
-        <ParagraphText>
-          Problems trying to resolve the conflict between
-        </ParagraphText>
-      </SectionWrapper>
-      <Grid container spacing={2}>
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-        <Grid key={item} item xs={12} sm={6} md={4} lg={3}>
-            <Link href={`/products/${item}`} passHref>
-                <StyledCard>
-                    <StyledCardMedia image={`/icons/product-test.svg`} />
-                    <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, paddingTop: 25, paddingBottom: 35, paddingLeft: 25, position: "relative", width: "100%", flex: "0 0 auto" }}>
-                    <StyledTypography variant="h5">Graphic Design</StyledTypography>
-                    <StyledLink variant="subtitle1">English Department</StyledLink>
-                    <StyledPrice>
-                        <Typography variant="h5" style={{ color: "grey" }}>$16.48</Typography>
-                        <Typography variant="h5" style={{ color: "blue" }}>$6.48</Typography>
-                    </StyledPrice>
-                    </CardContent>
-                </StyledCard>
-            </Link>
-        </Grid>
-      ))}
-    </Grid>
-      <ResponsiveButtonMd
-        className="!flex-[0_0_auto]"
-        dropdown={false}
-        icon={false}
-        iconLeft
-        next={false}
-        outlined
-        play={false}
-        previous={false}
-        rounded={false}
-        text
-        text1="LOAD MORE PRODUCTS"
-      />
-    </ContainerWrapper>
-  );
-};
-
-export default Container;
+export default Products;

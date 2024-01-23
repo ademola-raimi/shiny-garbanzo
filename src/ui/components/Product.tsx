@@ -1,6 +1,167 @@
-import React from "react";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Typography, Button, Grid, Chip } from "@mui/material";
+import { useRouter } from "next/router";
 import styled from "@emotion/styled";
+import { getCurrentPrice } from "../../utils";
+
+const Product = (): JSX.Element => {
+  const [product, setProduct] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const router = useRouter();
+  const { productId } = router.query;
+
+  console.log(productId);
+
+  const fetchProduct = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`https://dummyjson.com/products/${productId}`);
+      const data = await response.json();
+      setProduct(data);
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (productId) {
+      fetchProduct();
+    }
+  }, [productId]); // Fetch products on component mount
+
+  const handleChevronClick = (direction) => {
+    const lastIndex = product.images.length - 1;
+
+    if (direction === "right") {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === lastIndex ? 0 : prevIndex + 1
+      );
+    } else if (direction === "left") {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === 0 ? lastIndex : prevIndex - 1
+      );
+    }
+  };
+
+  const handleThumbnailClick = (index) => {
+    setCurrentImageIndex(index);
+  };
+
+  console.log(product);
+
+  return (
+    <StyledContainer>
+      {product && (
+        <StyledContent container spacing={0}>
+          <StyledImageContainer item>
+            <StyledImage>
+              <StyledProductImage>
+                <StyledImageOverlay productImage={product?.images?.[currentImageIndex]}>
+                  <StyledSecondImage />
+                </StyledImageOverlay>
+                <StyledCarouselControl
+                  alt="Carousel control"
+                  src="/icons/ChevronRight.svg"
+                  onClick={() => handleChevronClick("right")}
+                  style={{left: '450px'}}
+                />
+                <StyledCarouselControl
+                  alt="Carousel control"
+                  src="/icons/ChevronLeft.svg"
+                  style={{left: '20px'}}
+                  onClick={() => handleChevronClick("left")}
+                />
+              </StyledProductImage>
+              <StyledCaptionsContainer>
+                {product?.images?.map((image, index) => (
+                  <StyledCaptionImage
+                    key={index}
+                    alt="Carousel captions"
+                    isActive={currentImageIndex === index}
+                    onClick={() => handleThumbnailClick(index)}
+                    src={image}
+                  />
+                ))}
+              </StyledCaptionsContainer>
+              
+            </StyledImage>
+            <StyledText>
+              <StyledContainer>
+                  <StyledTitle>{product.brand}</StyledTitle>
+                  <StyledReviews>
+                      <StyledStars alt="Stars" src="/icons/stars.svg" />
+                      <StyledReviewsText>10 Reviews</StyledReviewsText>
+                  </StyledReviews>
+                  <StyledPrice>${getCurrentPrice(product.price, product.discountPercentage)}</StyledPrice>
+                  <StyledAvailability>
+                      <StyledAvailabilityText>Availability&nbsp;&nbsp;:</StyledAvailabilityText>
+                      {product.stock > 0 ? (
+                        <StyledInStock>In Stock</StyledInStock>
+                      ) : (
+                        <Chip label="Sold Out" color="dark" />
+                      )}
+                  </StyledAvailability>
+                  <StyledParagraph>{""}</StyledParagraph>
+                  <StyledHr alt="Hr" src="hr.svg" />
+                  <StyledColorOptions>
+                      <StyledColorOption />
+                      <StyledColorOption />
+                      <StyledColorOption />
+                      <StyledColorOption />
+                  </StyledColorOptions>
+                  <StyledActions>
+                      <StyledSelectOptions>
+                      <StyledSelectOptionsText>Select Options</StyledSelectOptionsText>
+                      </StyledSelectOptions>
+                      <StyledIcon alt="Like" src="/icons/like-2.svg" />
+                      <StyledIcon alt="Basket" src="/icons/basket-2.svg" />
+                      <StyledIcon alt="More" src="/icons/more-2.svg" />
+                  </StyledActions>
+              </StyledContainer>
+            </StyledText>
+            <StyledButton>
+              {/* Your button content */}
+            </StyledButton>
+          </StyledImageContainer>
+        </StyledContent>
+      )}
+    </StyledContainer>
+  );
+};
+
+export default Product;
+
+
+
+const StyledImage = styled.div`
+  /* Your image styles */
+  position: relative;
+`;
+
+const StyledCaptionsContainer = styled.div`
+  /* Your captions container styles */
+  display: flex;
+  position: absolute;
+  bottom: 71px;
+  left: 0;
+`;
+
+const StyledCaptionImage = styled("img")`
+  width: 50px; 
+  height: 50px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 2px solid transparent; /* Border for non-active thumbnails */
+  ${(props) =>
+    props.isActive &&
+    `
+    border-color: #ff5722; /* Border color for active thumbnail */
+  `}
+`;
 
 const StyledContainer = styled(Box)({
   position: "relative",
@@ -26,11 +187,11 @@ const StyledImageContainer = styled(Box)({
   flex: "0 0 auto",
 });
 
-const StyledImage = styled(Box)({
-  position: "relative",
-  width: "510px",
-  height: "550px",
-});
+// const StyledImage = styled(Box)({
+//   position: "relative",
+//   width: "510px",
+//   height: "550px",
+// });
 
 const StyledProductImage = styled(Box)({
   position: "relative",
@@ -39,56 +200,30 @@ const StyledProductImage = styled(Box)({
   borderRadius: "5px",
 });
 
-const StyledImageOverlay = styled(Box)({
+const StyledImageOverlay = styled(Box)(({ productImage }) => ({
   position: "absolute",
   width: "506px",
   height: "450px",
   top: 0,
   left: 0,
-  backgroundImage: "url(/icons/single-product.svg)",
+  backgroundImage: `url(${productImage})`, // Dynamic image URL
   backgroundSize: "cover",
   backgroundPosition: "50% 50%",
-});
+}));
 
-const StyledSecondImage = styled(Box)({
+const StyledSecondImage = styled(Box)(({ productImage }) => ({
   height: "450px",
-  backgroundImage: "url(/icons/single-product.svg)",
+  backgroundImage: `url(${productImage})`, // Dynamic image URL
   backgroundSize: "cover",
   backgroundPosition: "50% 50%",
-});
+}));
 
 const StyledCarouselControl = styled("img")({
   position: "absolute",
   width: "24px",
   height: "44px",
   top: "259px",
-});
-
-const StyledCaptionsContainer = styled(Box)({
-  position: "absolute",
-  width: "219px",
-  height: "75px",
-  top: "471px",
-  left: 0,
-});
-
-const StyledCaptionImage = styled("img")({
-  position: "absolute",
-  width: "100px",
-  height: "75px",
-  top: 0,
-  left: 0,
-});
-
-const StyledCaptionThumb = styled(Box)({
-  position: "absolute",
-  width: "100px",
-  height: "75px",
-  top: 0,
-  left: "119px",
-  backgroundImage: "url(/icons/single-product-1-thumb-2.jpg)",
-  backgroundSize: "cover",
-  backgroundPosition: "50% 50%",
+  cursor: "pointer",
 });
 
 const StyledText = styled(Typography)({
@@ -98,20 +233,13 @@ const StyledText = styled(Typography)({
 const StyledButton = styled(Button)({
   // Add your button styles here
 });
-
-
-// const StyledContainer = styled(Box)({
-//     position: "relative",
-//     width: "510px",
-//     height: "471px",
-//   });
   
-  const StyledTitle = styled(Typography)({
-    position: "absolute",
-    top: "10px",
-    left: "24px",
-    ...getTextStyles("--h-4"),
-  });
+const StyledTitle = styled(Typography)({
+  position: "absolute",
+  top: "10px",
+  left: "24px",
+  ...getTextStyles("--h-4"),
+});
   
   const StyledReviews = styled(Box)({
     display: "flex",
@@ -222,92 +350,15 @@ const StyledButton = styled(Button)({
     height: "40px",
   });
 
-const Product = (): JSX.Element => {
-  return (
-    <StyledContainer>
-      <StyledContent container spacing={0}>
-        <StyledImageContainer item>
-          <StyledImage>
-            <StyledProductImage>
-              <StyledImageOverlay>
-                <StyledSecondImage />
-              </StyledImageOverlay>
-              <StyledCarouselControl
-                alt="Carousel control"
-                src="/icons/ChevronRight.svg"
-                style={{left: '450px'}}
-              />
-              <StyledCarouselControl
-                alt="Carousel control"
-                src="/icons/ChevronLeft.svg"
-                style={{left: '20px'}}
-              />
-            </StyledProductImage>
-            <StyledCaptionsContainer>
-              <StyledCaptionImage
-                alt="Carousel captions"
-                src="/icons/single-product-1-thumb-1.svg"
-              />
-              <StyledCaptionThumb />
-            </StyledCaptionsContainer>
-            <StyledCaptionsContainer style={{left: '114px'}}>
-              <StyledCaptionImage
-                alt="Carousel captions"
-                src="/icons/single-product-1-thumb-2.svg"
-              />
-              <StyledCaptionThumb />
-            </StyledCaptionsContainer>
-          </StyledImage>
-          <StyledText>
-            <StyledContainer>
-                <StyledTitle>Floating Phone</StyledTitle>
-                <StyledReviews>
-                    <StyledStars alt="Stars" src="/icons/stars.svg" />
-                    <StyledReviewsText>10 Reviews</StyledReviewsText>
-                </StyledReviews>
-                <StyledPrice>$1,139.33</StyledPrice>
-                <StyledAvailability>
-                    <StyledAvailabilityText>Availability&nbsp;&nbsp;:</StyledAvailabilityText>
-                    <StyledInStock>In Stock</StyledInStock>
-                </StyledAvailability>
-                <StyledParagraph>{""}</StyledParagraph>
-                <StyledHr alt="Hr" src="hr.svg" />
-                <StyledColorOptions>
-                    <StyledColorOption />
-                    <StyledColorOption />
-                    <StyledColorOption />
-                    <StyledColorOption />
-                </StyledColorOptions>
-                <StyledActions>
-                    <StyledSelectOptions>
-                    <StyledSelectOptionsText>Select Options</StyledSelectOptionsText>
-                    </StyledSelectOptions>
-                    <StyledIcon alt="Like" src="/icons/like-2.svg" />
-                    <StyledIcon alt="Basket" src="/icons/basket-2.svg" />
-                    <StyledIcon alt="More" src="/icons/more-2.svg" />
-                </StyledActions>
-            </StyledContainer>
-          </StyledText>
-          <StyledButton>
-            {/* Your button content */}
-          </StyledButton>
-        </StyledImageContainer>
-      </StyledContent>
-    </StyledContainer>
-  );
-};
-
-export default Product;
-
 
 function getTextStyles(prefix) {
-    return {
-      fontFamily: `var(${prefix}-font-family)`,
-      fontWeight: `var(${prefix}-font-weight)`,
-      fontSize: `var(${prefix}-font-size)`,
-      letterSpacing: `var(${prefix}-letter-spacing)`,
-      lineHeight: `var(${prefix}-line-height)`,
-      fontStyle: `var(${prefix}-font-style)`,
-      color: "var(--text-color)",
-    };
-  }
+  return {
+    fontFamily: `var(${prefix}-font-family)`,
+    fontWeight: `var(${prefix}-font-weight)`,
+    fontSize: `var(${prefix}-font-size)`,
+    letterSpacing: `var(${prefix}-letter-spacing)`,
+    lineHeight: `var(${prefix}-line-height)`,
+    fontStyle: `var(${prefix}-font-style)`,
+    color: "var(--text-color)",
+  };
+}
