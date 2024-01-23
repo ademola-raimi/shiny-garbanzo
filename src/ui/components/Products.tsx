@@ -2,24 +2,25 @@ import React, { useEffect, useState} from "react";
 import { styled } from "@mui/system";
 import Link from 'next/link';
 import { Card, CardContent, Typography, Grid, CardMedia, Box, Button } from "@mui/material";
+// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../store/store';
+import { setProducts, setPage, setLoading, setHideLoadMore } from '../../store/slices/productsSlice';
 import { getCurrentPrice } from "../../utils";
 
 const Products = (): JSX.Element => {
-  const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hideLoadMore, setHideLoadMore] = useState(false);
+  const dispatch = useDispatch();
+  const { products, page, loading, limit, hideLoadMore } = useSelector((state) => state.products);
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://dummyjson.com/products?page=${page}&limit=10`);
+      const response = await fetch(`https://dummyjson.com/products?page=${page}&limit=${limit}`);
       const data = await response.json();
       const _products = data.products || [];
       console.log(data);
-      if (data.total === products.length) setHideLoadMore(true);
-      setProducts((prevProducts) => [...prevProducts, ..._products]);
-      setPage((prevPage) => prevPage + 1);
+      if (data.total === products.length) dispatch(setHideLoadMore(true));
+      dispatch(setProducts(_products));
+      dispatch(setPage(page + 1));
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
