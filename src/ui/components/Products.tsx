@@ -17,9 +17,9 @@ const Products = ({ isIndex, fetchProducts }): JSX.Element => {
   return (
     <ContainerWrapper>
       <SectionWrapper>
-        <FeaturedText isIndex={isIndex}>Featured Products</FeaturedText>
-        <BestsellerText isIndex={isIndex} >BESTSELLER PRODUCTS</BestsellerText>
-        <ParagraphText isIndex={isIndex}>
+        <FeaturedText is_index={isIndex.toString()}>Featured Products</FeaturedText>
+        <BestsellerText is_index={isIndex.toString()} >BESTSELLER PRODUCTS</BestsellerText>
+        <ParagraphText is_index={isIndex.toString()}>
           Problems trying to resolve the conflict between
         </ParagraphText>
       </SectionWrapper>
@@ -72,32 +72,32 @@ const SectionWrapper = styled("div")({
   gap: "10px",
 });
 
-const FeaturedText = styled('div')<{ isIndex: boolean }>(({ isIndex }) => ({
+const FeaturedText = styled('div')<{ is_index: string }>(({ is_index }) => ({
   margin: "-1px 0 0",
   fontFamily: "var(--h-4-font-style)",
   fontWeight: "var(--h-4-font-weight)",
   fontSize: "var(--h-4-font-size)",
   color: "var(--second-text-color)",
   textAlign: "center",
-  display: isIndex ? 'block' : 'none',
+  display: !!is_index ? 'block' : 'none',
 }));
 
-const BestsellerText = styled('div')<{ isIndex: boolean }>(({ isIndex }) => ({
+const BestsellerText = styled('div')<{ is_index: string }>(({ is_index }) => ({
   fontFamily: "var(--h-3-font-style)",
   fontWeight: "var(--h-3-font-weight)",
   fontSize: "var(--h-3-font-size)",
   color: "var(--text-color)",
   textAlign: "center",
-  float: isIndex ? "left" : "none",
+  float: !!is_index ? "left" : "none",
 }));
 
-const ParagraphText = styled('p')<{ isIndex: boolean }>(({ isIndex }) => ({
+const ParagraphText = styled('p')<{ is_index: string }>(({ is_index }) => ({
   fontFamily: "var(--paragraph-font-style)",
   fontWeight: "var(--paragraph-font-weight)",
   fontSize: "var(--paragraph-font-size)",
   color: "var(--second-text-color)",
   textAlign: "center",
-  display: isIndex ? 'block' : 'none',
+  display: !!is_index ? 'block' : 'none',
 }));
 
 const StyledCard = styled(Card)({

@@ -1,6 +1,10 @@
 // reducers/products.js
 import { createSlice } from '@reduxjs/toolkit';
 
+// Load basket and wishlist from localStorage
+const initialBasket = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('basket')) || [] : [];
+const initialWishlist = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('wishlist')) || [] : [];
+
 const initialState = {
   products: [],
   bestSellerProduct: [],
@@ -8,6 +12,8 @@ const initialState = {
   loading: false,
   limit: 10,
   hideLoadMore: false,
+  basket: initialBasket,
+  wishlist: initialWishlist,
 };
 
 const productsSlice = createSlice({
@@ -29,6 +35,14 @@ const productsSlice = createSlice({
     setHideLoadMore: (state, action) => {
       state.hideLoadMore = action.payload;
     },
+    addToBasket: (state, action) => {
+      state.basket = [...state.basket, action.payload];
+      localStorage.setItem('basket', JSON.stringify(state.basket));
+    },
+    addToWishlist: (state, action) => {
+      state.wishlist = [...state.wishlist, action.payload];
+      localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
+    },
   },
 });
 
@@ -38,6 +52,8 @@ export const {
   setLoading,
   setHideLoadMore,
   setBestSellerProducts,
+  addToBasket,
+  addToWishlist,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

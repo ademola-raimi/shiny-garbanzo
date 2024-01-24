@@ -1,13 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Button, Grid, Chip } from "@mui/material";
+import { Box, Typography, Button, Grid, Chip, Snackbar } from "@mui/material";
 import styled from "@emotion/styled";
 import { getCurrentPrice } from "../../utils";
 import { useDispatch, useSelector } from '../../store/store';
 import { setCurrentImageIndex } from '../../store/slices/productSlice';
+import { addToBasket, addToWishlist } from '../../store/slices/productsSlice';
 
 const Product = (): JSX.Element => {
   const dispatch = useDispatch();
   const { product, loading, currentImageIndex } = useSelector((state) => state.product);
+  const { basket, wishlist } = useSelector((state) => state.products);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  // Check if the product is in the basket or wishlist
+  const isInBasket = basket.some((item) => item.id === product.id);
+  const isInWishlist = wishlist.some((item) => item.id === product.id);
+
+  const handleAddToBasket = () => {
+    if (isInBasket) return;
+    dispatch(addToBasket(product));
+    setSnackbarOpen(true);
+  };
+
+  const handleAddToWishlist = () => {
+    if (isInWishlist) return;
+    dispatch(addToWishlist(product));
+    setSnackbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleChevronClick = (direction) => {
     const lastIndex = product.images.length - 1;
@@ -93,10 +116,10 @@ const Product = (): JSX.Element => {
                   </StyledColorOptions>
                   <StyledActions>
                       <StyledSelectOptions>
-                      <StyledSelectOptionsText>Select Options</StyledSelectOptionsText>
+                      <Button variant="contained">Select Options</Button>
                       </StyledSelectOptions>
-                      <StyledIcon alt="Like" src="/icons/like-2.svg" />
-                      <StyledIcon alt="Basket" src="/icons/basket-2.svg" />
+                      <StyledIcon alt="Like" onClick={handleAddToWishlist} disabled={isInWishlist} src="/icons/like-2.svg" />
+                      <StyledIcon alt="Basket" onClick={handleAddToBasket} disabled={isInBasket} src="/icons/basket-2.svg" />
                       <StyledIcon alt="More" src="/icons/more-2.svg" />
                   </StyledActions>
               </StyledContainer>
@@ -104,6 +127,12 @@ const Product = (): JSX.Element => {
             <StyledButton>
               {/* Your button content */}
             </StyledButton>
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={3000}
+              onClose={handleSnackbarClose}
+              message="Item added successfully!"
+            />
           </StyledImageContainer>
         </StyledContent>
       )}
@@ -317,16 +346,14 @@ const StyledTitle = styled(Typography)({
     overflow: "hidden",
   });
   
-  const StyledSelectOptionsText = styled(Typography)({
-    ...getTextStyles("--h-6"),
-    color: "var(--light-text-color)",
-    textAlign: "center",
-  });
-  
-  const StyledIcon = styled("img")({
+  const StyledIcon = styled("img")<{ disabled?: boolean }>(({ disabled }) => ({
     width: "40px",
     height: "40px",
-  });
+    cursor: disabled ? "not-allowed" : "pointer",
+    filter: disabled ? "grayscale(100%)" : "none",
+    opacity: disabled ? 0.5 : 1,
+
+  }));
 
 
 function getTextStyles(prefix) {
