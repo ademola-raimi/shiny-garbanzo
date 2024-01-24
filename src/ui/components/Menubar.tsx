@@ -42,30 +42,13 @@ const Menubar = (): JSX.Element => {
       <Brand>
         <BrandText>Bandage</BrandText>
       </Brand>
-      <ActionButtons>
-          <ActionButton>
-            <AvatarIcon alt="Avatar icn" src="/icons/avatar.svg" />
-            <ActionButtonText>Login / Register</ActionButtonText>
-          </ActionButton>
-          <ActionButton>
-            <ActionButtonIcon alt="Li" src="/icons/search.svg" />
-          </ActionButton>
-          <ActionButton onClick={handleCartToggle} style={{ cursor: 'pointer' }}>
-            <ActionButtonIcon alt="basket icn" src="/icons/basket.svg" />
-            <ActionButtonText>{basketItems.length}</ActionButtonText>
-          </ActionButton>
-          <ActionButton onClick={handleWishlistToggle} style={{ cursor: 'pointer' }}>
-            <ActionButtonIcon alt="love icn" src="/icons/love.svg" />
-            <ActionButtonText>{wishlistItems.length}</ActionButtonText>
-          </ActionButton>
-        </ActionButtons>
       <MobileMenuToggle onClick={handleMobileMenuToggle}>
         <MenuIcon />
       </MobileMenuToggle>
       {isMobileMenuOpen ? (
         <NavLinksContainer mobileMenuOpen={isMobileMenuOpen}>
           <List>
-            <ListItem>
+            <ListItem style={{ cursor: "pointer" }}>
               <Link href="/">
                 <NavLinkText onClick={closeMobileMenu}>Home</NavLinkText>
               </Link>
@@ -136,6 +119,23 @@ const Menubar = (): JSX.Element => {
           </NavLink>
         </NavLinksContainerDesktop>
       )}
+      <ActionButtons>
+        <ActionButton>
+          <AvatarIcon alt="Avatar icn" src="/icons/avatar.svg" />
+          <ActionButtonText>Login / Register</ActionButtonText>
+        </ActionButton>
+        <ActionButton>
+          <ActionButtonIcon alt="Li" src="/icons/search.svg" />
+        </ActionButton>
+        <ActionButton onClick={handleCartToggle} style={{ cursor: 'pointer' }}>
+          <ActionButtonIcon alt="basket icn" src="/icons/basket.svg" />
+          <ActionButtonText>{basketItems.length}</ActionButtonText>
+        </ActionButton>
+        <ActionButton onClick={handleWishlistToggle} style={{ cursor: 'pointer' }}>
+          <ActionButtonIcon alt="love icn" src="/icons/love.svg" />
+          <ActionButtonText>{wishlistItems.length}</ActionButtonText>
+        </ActionButton>
+      </ActionButtons>
       <Modal
         open={isCartOpen}
         handleToggle={handleCartToggle}
