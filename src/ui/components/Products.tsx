@@ -8,7 +8,7 @@ import { ProductsType } from '../../types';
 
 interface ProductsProps {
   isIndex: boolean;
-  fetchProducts: () => void;
+  fetchProducts?: () => void;
 }
 
 const Products: React.FC<ProductsProps> = ({ isIndex, fetchProducts }): JSX.Element => {
@@ -16,7 +16,9 @@ const Products: React.FC<ProductsProps> = ({ isIndex, fetchProducts }): JSX.Elem
   const _products: ProductsType = isIndex ? products : bestSellerProduct;
 
   const handleLoadMore = () => {
-    fetchProducts();
+    if (fetchProducts) {
+      fetchProducts();
+    }
   };
 
   return (
