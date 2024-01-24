@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "@mui/system";
-import { Container as MuiContainer, Typography, Button } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 
 const Container = styled("div")`
   display: flex;
@@ -9,8 +9,6 @@ const Container = styled("div")`
   gap: 24px;
   padding-top: 160px;
   padding-bottom: 112px;
-  padding-left: 0;
-  position: relative;
   background-image: url("/icons/action-bg.svg"); /* Add your background image source here */
   background-size: cover;
   width: 100%;

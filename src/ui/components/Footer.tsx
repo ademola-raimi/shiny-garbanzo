@@ -1,59 +1,43 @@
-import React from "react";
-import { styled } from "@mui/system";
-import { Button, Typography } from "@mui/material";
+import React from 'react';
+import { styled } from '@mui/system';
+import { Button, Grid, Typography } from '@mui/material';
 
-const FooterContainer = styled("div")`
-  position: relative;
-  width: 1440px;
-  height: 488px;
-  background-color: rgba(255, 255, 255, 1);
+const FooterContainer = styled('div')`
+  max-width: 1050px;
+  width: 100%;
+  margin: 0 auto;
 `;
 
-const FooterTop = styled("div")`
-  position: absolute;
-  width: 1440px;
-  height: 142px;
-  top: 0;
-  left: 0;
-`;
-
-const FooterTopBackground = styled("div")`
-  position: absolute;
-  width: 1440px;
-  height: 142px;
-  top: 0;
-  left: 0;
-  background-color: rgba(250, 250, 250, 1);
-`;
-
-const FooterTopContent = styled("div")`
+const FooterTopContent = styled('div')`
   padding: 40px 0;
-  display: flex;
-  flex-direction: column;
-  width: 1050px;
-  position: relative;
-  left: 195px;
+  @media screen and (max-width: 991px) {
+    padding: 40px 10px;
+  }
+  @media screen and (max-width: 767px) {
+    padding: 0 10px;
+  }
 `;
 
-const FooterLogoSection = styled("div")`
+const FooterLogoSection = styled('div')`
   display: flex;
   align-items: center;
-  gap: 577.5px;
-  position: relative;
-  flex: 0 0 auto;
+  justify-content: space-between;
+  height: 58px;
+  @media screen and (max-width: 767px) {
+    height: auto;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    padding: 40px 45px 40px 44px;
+    gap: 11.5px;
+  }
 `;
 
-const FooterLogoContainer = styled("div")`
+const FooterLogoContainer = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 10px;
   position: relative;
-`;
-
-const FooterLogo = styled("div")`
-  position: relative;
-  width: 187px;
-  height: 58px;
 `;
 
 const LogoText = styled(Typography)`
@@ -61,95 +45,80 @@ const LogoText = styled(Typography)`
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  letter-spacing: 0.10000000149011612px;
+  letter-spacing: 0.1px;
   line-height: 32px;
-  color: rgba(37, 43, 66, 1);
+  color: #252b42;
+  @media screen and (max-width: 767px) {
+    padding: 13px 0;
+  }
 `;
 
-const FooterSocial = styled("div")`
-  position: relative;
+const FooterSocial = styled('div')`
   width: 236px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  @media screen and (max-width: 767px) {
+    justify-content: start;
+  }
 `;
 
-const HorizontalRule = styled("img")`
-  position: absolute;
-  width: 1057px;
-  height: 1px;
-  top: 138px;
-  left: 195px;
-`;
-
-const FooterBottom = styled("div")`
-  position: absolute;
-  width: 1440px;
-  height: 272px;
-  top: 142px;
-  left: 0;
-  background-color: rgba(255, 255, 255, 1);
-`;
-
-const FooterBottomContent = styled("div")`
+const FooterBottomContent = styled(Grid)`
   padding: 50px 0;
-  display: -webkit-box;
-  flex-direction: column;
-  width: 1050px;
-  position: relative;
-  left: 195px;
+  border-top: 1px solid #e6e6e6;
+  @media screen and (max-width: 991px) {
+    padding: 50px 10px;
+  }
+  @media screen and (max-width: 767px) {
+    padding: 0 47px 0 46px;
+    border: none;
+  }
 `;
 
-const FooterColumn = styled("div")`
+const FooterColumn = styled(Grid)`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   width: 148px;
-  position: relative;
 `;
 
 const FooterColumnTitle = styled(Typography)`
   font-family: 'Montserrat', sans-serif;
-  font-size: 18px;
-  font-style: normal;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.10000000149011612px;
+  letter-spacing: 0.1px;
   line-height: 24px;
-  color: rgba(37, 43, 66, 1);
+  color: #252b42;
+  margin-bottom: 10px;
 `;
 
 const FooterLink = styled(Typography)`
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
-  letter-spacing: 0.10000000149011612px;
-  line-height: 28px;
-  color: rgba(108, 117, 125, 1);
+  letter-spacing: 0.1px;
+  line-height: 24px;
+  color: #737373;
 `;
 
-const FooterInputContainer = styled("div")`
-  position: relative;
+const FooterInputContainer = styled('div')`
   width: 321px;
-  height: 87px;
 `;
 
-const FooterInputBackground = styled("div")`
-  position: absolute;
-  width: 321px;
-  height: 58px;
-  top: 0;
-  left: 0;
-  background-color: rgba(248, 248, 248, 1);
-  border: 1px solid rgba(230, 230, 230, 1);
-  border-radius: 5px;
-  overflow: hidden;
-`;
-
-const FooterInput = styled("input")`
+const FooterInputBackground = styled('div')`
+  background-color: #f9f9f9;
+  border: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  height: 100%;
+`;
+
+const FooterInput = styled('input')`
   padding: 14px 20px;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
   line-height: 28px;
   color: rgba(108, 117, 125, 1);
@@ -159,114 +128,113 @@ const FooterInput = styled("input")`
 `;
 
 const SubscribeButton = styled(Button)`
-  all: unset;
-  box-sizing: border-box;
-  position: absolute;
   width: 117px;
   height: 58px;
-  top: 0;
-  left: 204px;
-`;
-
-const SubscribeButtonContent = styled("div")`
-  position: relative;
-  height: 100%;
-  background-color: rgba(52, 144, 220, 1);
+  background-color: #23a6f0;
   border-radius: 0 5px 5px 0;
-  overflow: hidden;
-  border: 1px solid rgba(230, 230, 230, 1);
-`;
-
-const SubscribeButtonText = styled(Typography)`
+  border: 1px solid #e6e6e6;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
   line-height: 28px;
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
   text-align: center;
+  &:hover {
+    background-color: #23a6f0;
+  }
+`;
+
+const CopyrightContent = styled('div')`
+  padding: 25px 0;
+  background: #fafafa;
+  @media screen and (max-width: 991px) {
+    padding: 25px 10px;
+  }
+  @media screen and (max-width: 767px) {
+    text-align: center;
+    max-width: 200px;
+    width: 100%;
+    margin: 0 auto;
+  }
+`;
+
+const Copyright = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 24px;
+  color: #737373;
 `;
 
 const Footer = (): JSX.Element => {
   return (
     <FooterContainer>
-      <FooterTop>
-        <FooterTopBackground />
-        <FooterTopContent>
-          <FooterLogoSection>
-            <FooterLogoContainer>
-              <FooterLogo>
-                <LogoText>
-                  Bandage
-                </LogoText>
-              </FooterLogo>
-            </FooterLogoContainer>
-            <FooterSocial>
-                <img alt="Facebook icon" src="/icons/facebook.svg" />
-                <img alt="Instagram icon" src="/icons/instagram.svg" />
-                <img alt="Twiter icon" src="/icons/twitter.svg" />
-            </FooterSocial>
-          </FooterLogoSection>
-        </FooterTopContent>
-        {/* <HorizontalRule alt="Hr stroke" src="hr-stroke.svg" /> */}
-      </FooterTop>
-      <FooterBottom>
-        <FooterBottomContent>
-          <FooterColumn>
-            <FooterColumnTitle>Company Info</FooterColumnTitle>
-            <FooterLink>About Us</FooterLink>
-            <FooterLink>Carrier</FooterLink>
-            <FooterLink>We are hiring</FooterLink>
-            <FooterLink>Blog</FooterLink>
-          </FooterColumn>
-          <FooterColumn>
-            <FooterColumnTitle>Legal</FooterColumnTitle>
-            <FooterLink>About Us</FooterLink>
-            <FooterLink>Carrier</FooterLink>
-            <FooterLink>We are hiring</FooterLink>
-            <FooterLink>Blog</FooterLink>
-          </FooterColumn>
-          <FooterColumn>
-            <FooterColumnTitle>Features</FooterColumnTitle>
-            <FooterLink>Business Marketing</FooterLink>
-            <FooterLink>User Analytic</FooterLink>
-            <FooterLink>Live Chat</FooterLink>
-            <FooterLink>Unlimited Support</FooterLink>
-          </FooterColumn>
-          <FooterColumn>
-            <FooterColumnTitle>Resources</FooterColumnTitle>
-            <FooterLink>IOS & Android</FooterLink>
-            <FooterLink>Watch a Demo</FooterLink>
-            <FooterLink>Customers</FooterLink>
-            <FooterLink>API</FooterLink>
-          </FooterColumn>
+      <FooterTopContent>
+        <FooterLogoSection>
+          <FooterLogoContainer>
+            <LogoText>Bandage</LogoText>
+          </FooterLogoContainer>
+          <FooterSocial>
+            <img alt="Facebook icon" src="/icons/facebook.svg" />
+            <img alt="Instagram icon" src="/icons/instagram.svg" />
+            <img alt="Twiter icon" src="/icons/twitter.svg" />
+          </FooterSocial>
+        </FooterLogoSection>
+      </FooterTopContent>
+      <FooterBottomContent container gap="30px">
+        <FooterColumn xs={12} sm={3} md={1.6}>
+          <FooterColumnTitle>Company Info</FooterColumnTitle>
+          <FooterLink>About Us</FooterLink>
+          <FooterLink>Carrier</FooterLink>
+          <FooterLink>We are hiring</FooterLink>
+          <FooterLink>Blog</FooterLink>
+        </FooterColumn>
+        <FooterColumn xs={12} sm={3} md={1.6}>
+          <FooterColumnTitle>Legal</FooterColumnTitle>
+          <FooterLink>About Us</FooterLink>
+          <FooterLink>Carrier</FooterLink>
+          <FooterLink>We are hiring</FooterLink>
+          <FooterLink>Blog</FooterLink>
+        </FooterColumn>
+        <FooterColumn xs={12} sm={3} md={1.6}>
+          <FooterColumnTitle>Features</FooterColumnTitle>
+          <FooterLink>Business Marketing</FooterLink>
+          <FooterLink>User Analytic</FooterLink>
+          <FooterLink>Live Chat</FooterLink>
+          <FooterLink>Unlimited Support</FooterLink>
+        </FooterColumn>
+        <FooterColumn xs={12} sm={5.4} md={1.6}>
+          <FooterColumnTitle>Resources</FooterColumnTitle>
+          <FooterLink>IOS & Android</FooterLink>
+          <FooterLink>Watch a Demo</FooterLink>
+          <FooterLink>Customers</FooterLink>
+          <FooterLink>API</FooterLink>
+        </FooterColumn>
+        <FooterColumn xs={12} sm={6} md={3.68}>
+          <FooterColumnTitle>Get In Touch</FooterColumnTitle>
           <FooterInputContainer>
             <FooterInputBackground>
               <FooterInput placeholder="Your Email" />
-              <SubscribeButton>
-                <SubscribeButtonContent>
-                  <SubscribeButtonText>Subscribe</SubscribeButtonText>
-                </SubscribeButtonContent>
-              </SubscribeButton>
+              <SubscribeButton>Subscribe</SubscribeButton>
             </FooterInputBackground>
             <Typography
               style={{
-                position: "absolute",
-                top: "58px",
-                left: "2px",
-                fontFamily: "Montserrat-Regular",
-                fontSize: "12px",
-                color: "rgba(108, 117, 125, 1)",
-                letterSpacing: "0.20px",
-                lineHeight: "28px",
-                whiteSpace: "nowrap",
+                fontFamily: 'Montserrat',
+                fontSize: '12px',
+                color: '#737373',
+                letterSpacing: '0.20px',
+                lineHeight: '28px',
               }}
             >
               Lore imp sum dolor Amit
             </Typography>
           </FooterInputContainer>
-        </FooterBottomContent>
-      </FooterBottom>
+        </FooterColumn>
+      </FooterBottomContent>
+      <CopyrightContent>
+        <Copyright>Made With Love By Finland All Right Reserved </Copyright>
+      </CopyrightContent>
     </FooterContainer>
   );
 };
