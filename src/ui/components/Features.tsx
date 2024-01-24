@@ -106,7 +106,7 @@ const Features = (): JSX.Element => {
           </Description>
         </TitleWrapper>
         <FeatureCardContainer container rowGap="30px">
-          <FeatureCard xs={12} lg={4} paddingX="35px" paddingY="40px" gap="20px">
+          <FeatureCard md={4} paddingX="35px" paddingY="40px" gap="20px">
             <Icon src="/icons/easy-win.svg" alt="Icon cool icon" />
             <FeatureTitle>
               Easy Wins
@@ -115,7 +115,7 @@ const Features = (): JSX.Element => {
               Get your best looking smile now!
             </FeatureDescription>
           </FeatureCard>
-          <FeatureCard xs={12} lg={4} paddingX="35px" paddingY="40px" gap="20px">
+          <FeatureCard md={4} paddingX="35px" paddingY="40px" gap="20px">
             <Icon src="/icons/concrete.svg" alt="Icon cool icon" />
             <FeatureTitle>
               Concrete
@@ -124,7 +124,7 @@ const Features = (): JSX.Element => {
               Defalcate is most focused on helping you discover your most beautiful smile
             </FeatureDescription>
           </FeatureCard>
-          <FeatureCard xs={12} lg={4} paddingX="35px" paddingY="40px" gap="20px">
+          <FeatureCard md={4} paddingX="35px" paddingY="40px" gap="20px">
             <Icon src="/icons/growth.svg" alt="Icon cool icon" />
             <FeatureTitle>
               Hack Growth
