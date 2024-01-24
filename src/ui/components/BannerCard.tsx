@@ -1,24 +1,32 @@
-import React from "react";
-import { styled } from "@mui/system";
-import { Card, CardContent, Grid, Typography } from "@mui/material";
+import React from 'react';
+import { styled } from '@mui/system';
+import { Card, CardContent, Grid, Typography } from '@mui/material';
 
-const ContainerWrapper = styled("div")`
-  display: inline-flex;
+const ContainerWrapper = styled('div')`
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 80px 0;
-  position: relative;
+  max-width: 1146px;
+  width: 100%;
+  margin: 0 auto;
+  .margin-auto {
+    margin: 0 auto;
+  }
 `;
 
-const CardImage = styled("div")`
-  position: relative;
+const CardImage = styled(CardContent)`
   width: 452px;
   height: 616px;
   background: url(/icons/card-cover-1.svg);
-  background-size: 100% 100%;
+  background-size: cover;
+  padding: 24px;
+  @media screen and (max-width: 767px) {
+    width: 331px;
+    height: 300px;
+  }
 `;
 
-const CardContentContainer = styled("div")`
+const CardContentContainer = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -29,81 +37,108 @@ const MediaCardContent = styled(CardContent)`
   background: url(/icons/card-cover-2.svg);
   background-size: cover;
   height: 300px;
-  width: 550px;
+  width: 679px;
+  padding: 24px;
+  @media screen and (max-width: 767px) {
+    width: 331px;
+  }
 `;
 
 const ImageCardContent = styled(CardContent)`
   background: url(/icons/card-cover-3.svg);
   background-size: cover;
+  width: 331px;
   height: 300px;
+  padding: 24px;
 `;
 
-const OverlayImage = styled("div")`
-  position: relative;
+const OverlayImage = styled(CardContent)`
+  background: url(/icons/card-cover-4.svg);
+  background-size: cover;
+  width: 331px;
   height: 300px;
+  padding: 24px;
+`;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+const HeaderText = styled(Typography)({
+  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontSize: '40px',
+  fontWeight: 700,
+  letterSpacing: '0.2px',
+  lineHeight: '50px',
+  color: '#252B42',
+});
 
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url(/icons/card-cover-4.svg);
-    background-size: cover;
-  }
+const ReadMoreText = styled(Typography)({
+  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontSize: '14px',
+  fontWeight: 700,
+  letterSpacing: '0.2px',
+  lineHeight: '24px',
+  color: '#252B42',
+});
+
+const ItemsText = styled(Typography)({
+  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontSize: '14px',
+  fontWeight: 700,
+  letterSpacing: '0.2px',
+  lineHeight: '24px',
+  color: '#2DC071',
+});
+
+const FlexCol5 = styled('div')`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 const Container = (): JSX.Element => {
   return (
     <ContainerWrapper>
-      <Grid container spacing={15}>
-        <Grid item>
+      <Grid container gap={'15px'}>
+        <Grid item classes="margin-auto" style={{ margin: '0 auto' }}>
           <Card>
             <CardImage>
-                <Typography color="success-text-color" variant="h6">
-                  5 Items
-                </Typography>
-                <Typography variant="h3">FURNITURE</Typography>
-                <Typography color="success-text-color">Read More</Typography>
+              <FlexCol5>
+                <ItemsText>5 Items</ItemsText>
+                <HeaderText>FURNITURE</HeaderText>
+                <ReadMoreText>Read More</ReadMoreText>
+              </FlexCol5>
             </CardImage>
           </Card>
         </Grid>
         <Grid item>
           <CardContentContainer>
-            <Card>
+            <Card style={{ margin: '0 auto' }}>
               <MediaCardContent>
-                <Typography color="success-text-color" variant="h6">
-                  5 Items
-                </Typography>
-                <Typography variant="h3">FURNITURE</Typography>
-                <Typography color="success-text-color">Read More</Typography>
+                <FlexCol5>
+                  <ItemsText>5 Items</ItemsText>
+                  <HeaderText>FURNITURE</HeaderText>
+                  <ReadMoreText>Read More</ReadMoreText>
+                </FlexCol5>
               </MediaCardContent>
             </Card>
-            <Grid container spacing={2}>
-              <Grid item>
+            <Grid container gap="15px" style={{ margin: '0 auto' }}>
+              <Grid item style={{ margin: '0 auto' }}>
                 <Card>
                   <ImageCardContent>
-                    <Typography color="success-text-color" variant="h6">
-                      5 Items
-                    </Typography>
-                    <Typography variant="h3">FURNITURE</Typography>
-                    <Typography color="success-text-color">Read More</Typography>
+                    <FlexCol5>
+                      <ItemsText>5 Items</ItemsText>
+                      <HeaderText>FURNITURE</HeaderText>
+                      <ReadMoreText>Read More</ReadMoreText>
+                    </FlexCol5>
                   </ImageCardContent>
                 </Card>
               </Grid>
-              <Grid item>
+              <Grid item style={{ margin: '0 auto' }}>
                 <Card>
                   <OverlayImage>
-                    <Typography color="success-text-color" variant="h6">
-                      5 Items
-                    </Typography>
-                    <Typography variant="h3">FURNITURE</Typography>
-                    <Typography color="success-text-color">Read More</Typography>
+                    <FlexCol5>
+                      <ItemsText>5 Items</ItemsText>
+                      <HeaderText>FURNITURE</HeaderText>
+                      <ReadMoreText>Read More</ReadMoreText>
+                    </FlexCol5>
                   </OverlayImage>
                 </Card>
               </Grid>
