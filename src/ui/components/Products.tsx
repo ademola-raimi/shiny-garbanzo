@@ -48,6 +48,7 @@ const Products: React.FC<ProductsProps> = ({
         gap={'30px'}
         paddingY="8px"
         paddingX="24px"
+        className="center"
       >
         {_products?.map((item) => (
           <Grid key={item.id} item xs={12} sm={4} md={3} lg={2.1}>
@@ -72,7 +73,11 @@ const Products: React.FC<ProductsProps> = ({
         ))}
       </Grid>
       {!hideLoadMore && (
-        <LoadMoreButtton variant="outlined" onClick={handleLoadMore} disabled={loading}>
+        <LoadMoreButtton
+          variant="outlined"
+          onClick={handleLoadMore}
+          disabled={loading}
+        >
           LOAD MORE PRODUCTS
         </LoadMoreButtton>
       )}
@@ -80,15 +85,20 @@ const Products: React.FC<ProductsProps> = ({
   );
 };
 
-const ContainerWrapper = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  gap: '24px',
-  padding: '80px 0',
-  maxWidth: '1124px',
-  width: '100%',
-});
+const ContainerWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: 'center';
+  gap: 24px;
+  padding: 80px 0;
+  maxWidth: 1124px;
+  width: 100%;
+  .center {
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+  }
+`;
 
 const SectionWrapper = styled('div')({
   display: 'flex',
@@ -194,7 +204,10 @@ const LoadMoreButtton = styled(Button)({
   lineHeight: '22px',
   letterSpacing: '0.2px',
   color: '#23A6F0',
-  border: '1px solid #23A6F0'
+  border: '1px solid #23A6F0',
+  maxWidth: '261px',
+  width: '100%',
+  margin: '0 auto'
 });
 
 export default Products;

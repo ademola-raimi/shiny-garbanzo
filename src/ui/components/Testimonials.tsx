@@ -12,6 +12,11 @@ const StyledContainer = styled('div')`
 const ContentWrapper = styled(Grid)`
   display: flex;
   justify-content: space-between;
+  .center {
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+  }
 `;
 
 const TestimonialsText = styled(Typography)`
@@ -97,7 +102,7 @@ const Testimonials = (): JSX.Element => {
   return (
     <StyledContainer>
       <ContentWrapper container>
-        <Grid style={{ maxWidth: '438px' }} xs={12} lg={6}>
+        <Grid style={{ maxWidth: '438px' }} xs={12} lg={6} className="center">
           <TestimonialsText variant="h6">
             What they say about us
           </TestimonialsText>
@@ -114,7 +119,7 @@ const Testimonials = (): JSX.Element => {
             </TestimonialInfo>
           </TestimonialCard>
         </Grid>
-        <Grid xs={12} lg={6}>
+        <Grid xs={12} lg={6} className="center">
           <img
             src="/icons/frame.svg"
             alt="frame"

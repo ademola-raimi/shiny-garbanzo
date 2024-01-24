@@ -21,6 +21,12 @@ const BlogContent = styled(Grid)`
   align-items: center;
   gap: 80px;
   padding: 112px 0;
+  @media screen and (max-width: 991px) {
+    .grid-smaller {
+      justify-content: center;
+      padding: 0 30px;
+    }
+  }
 `;
 
 const BlogTitleWrapper = styled(Grid)`
@@ -140,9 +146,9 @@ const FeaturedPost = (): JSX.Element => {
           <FeaturedText variant="h6">Practice Advice</FeaturedText>
           <Title>Featured Posts</Title>
         </BlogTitleWrapper>
-        <Grid container gap="10px">
+        <Grid container gap="10px" className="grid-smaller">
           {[1, 2, 3].map((item) => (
-            <Grid xs={12} lg={3.9} key={item}>
+            <Grid xs={12} md={3.9} key={item}>
               <Card>
                 <CardMedia
                   component="img"
@@ -176,12 +182,14 @@ const FeaturedPost = (): JSX.Element => {
                       <StyledSmall>10 comments</StyledSmall>
                     </StyledInnerFrame>
                   </StyledFrame>
-                  {/* <LearnMore> */}
-                    <LearnMore style={{ color: '#737373' }} size="small">
-                      Learn More <img src="/icons/arrow-right.svg" width="9px" height="16px" />
-                    </LearnMore>
-                    
-                  {/* </LearnMore> */}
+                  <LearnMore style={{ color: '#737373' }} size="small">
+                    Learn More{' '}
+                    <img
+                      src="/icons/arrow-right.svg"
+                      width="9px"
+                      height="16px"
+                    />
+                  </LearnMore>
                 </CardContentWrapper>
               </Card>
             </Grid>
