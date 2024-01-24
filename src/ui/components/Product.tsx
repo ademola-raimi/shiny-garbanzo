@@ -115,65 +115,61 @@ const Product = (): JSX.Element => {
                     onClick={() => handleChevronClick('left')}
                   />
                 </StyledProductImage>
-                <StyledCaptionsContainer>
-                  {product?.images?.map((image, index) => (
-                    <StyledCaptionImage
-                      key={index}
-                      alt="Carousel captions"
-                      isActive={currentImageIndex === index}
-                      onClick={() => handleThumbnailClick(index)}
-                      src={image}
-                    />
-                  ))}
-                </StyledCaptionsContainer>
               </StyledImage>
               <StyledText>
-                <StyledContainer>
-                  <StyledTitle>{product.brand}</StyledTitle>
-                  <StyledReviews>
-                    <StyledStars alt="Stars" src="/icons/stars.svg" />
-                    <StyledReviewsText>10 Reviews</StyledReviewsText>
-                  </StyledReviews>
-                  <StyledPrice>
-                    $
-                    {getCurrentPrice(product.price, product.discountPercentage)}
-                  </StyledPrice>
-                  <StyledAvailability>
-                    <StyledAvailabilityText>
-                      Availability&nbsp;&nbsp;:
-                    </StyledAvailabilityText>
-                    {product.stock > 0 ? (
-                      <StyledInStock>In Stock</StyledInStock>
-                    ) : (
-                      <Chip label="Sold Out" />
-                    )}
-                  </StyledAvailability>
-                  <StyledHr />
-                  <StyledColorOptions>
-                    <StyledColorOption color="#23A6F0" />
-                    <StyledColorOption color="#2DC071" />
-                    <StyledColorOption color="#E77C40" />
-                    <StyledColorOption color="#252B42" />
-                  </StyledColorOptions>
-                  <StyledActions>
-                    <StyledSelectOptions>
-                      <Button variant="contained">Select Options</Button>
-                    </StyledSelectOptions>
-                    <StyledIcon
-                      alt="Like"
-                      onClick={handleAddToWishlist}
-                      disabled={isInWishlist}
-                      src="/icons/like-2.svg"
-                    />
-                    <StyledIcon
-                      alt="Basket"
-                      onClick={handleAddToBasket}
-                      disabled={isInBasket}
-                      src="/icons/basket-2.svg"
-                    />
-                    <StyledIcon alt="More" src="/icons/more-2.svg" />
-                  </StyledActions>
-                </StyledContainer>
+                <StyledContainerInner>
+                  <div>
+                    <StyledTitle>{product.brand}</StyledTitle>
+                    <StyledReviews>
+                      <StyledStars alt="Stars" src="/icons/stars.svg" />
+                      <StyledReviewsText>10 Reviews</StyledReviewsText>
+                    </StyledReviews>
+                    <StyledPrice>
+                      $
+                      {getCurrentPrice(
+                        product.price,
+                        product.discountPercentage
+                      )}
+                    </StyledPrice>
+                    <StyledAvailability>
+                      <StyledAvailabilityText>
+                        Availability&nbsp;&nbsp;:
+                      </StyledAvailabilityText>
+                      {product.stock > 0 ? (
+                        <StyledInStock>In Stock</StyledInStock>
+                      ) : (
+                        <Chip label="Sold Out" />
+                      )}
+                    </StyledAvailability>
+                  </div>
+                  <div>
+                    <StyledHr />
+                    <StyledColorOptions>
+                      <StyledColorOption color="#23A6F0" />
+                      <StyledColorOption color="#2DC071" />
+                      <StyledColorOption color="#E77C40" />
+                      <StyledColorOption color="#252B42" />
+                    </StyledColorOptions>
+                    <StyledActions>
+                      <StyledSelectOptions>
+                        <Button variant="contained">Select Options</Button>
+                      </StyledSelectOptions>
+                      <StyledIcon
+                        alt="Like"
+                        onClick={handleAddToWishlist}
+                        disabled={isInWishlist}
+                        src="/icons/like-2.svg"
+                      />
+                      <StyledIcon
+                        alt="Basket"
+                        onClick={handleAddToBasket}
+                        disabled={isInBasket}
+                        src="/icons/basket-2.svg"
+                      />
+                      <StyledIcon alt="More" src="/icons/more-2.svg" />
+                    </StyledActions>
+                  </div>
+                </StyledContainerInner>
               </StyledText>
               <Snackbar
                 open={snackbarOpen}
@@ -183,6 +179,17 @@ const Product = (): JSX.Element => {
                 message="Item added successfully!"
               />
             </StyledImageContainer>
+            <StyledCaptionsContainer>
+              {product?.images?.map((image, index) => (
+                <StyledCaptionImage
+                  key={index}
+                  alt="Carousel captions"
+                  isActive={currentImageIndex === index}
+                  onClick={() => handleThumbnailClick(index)}
+                  src={image}
+                />
+              ))}
+            </StyledCaptionsContainer>
           </StyledContent>
         )}
       </StyledContainer>
@@ -226,7 +233,6 @@ const StyledImage = styled.div`
 `;
 
 const StyledCaptionsContainer = styled.div`
-  /* Your captions container styles */
   display: flex;
 `;
 
@@ -248,6 +254,12 @@ const StyledContainer = styled(Box)({
   width: '100%',
   margin: '0 auto',
 });
+const StyledContainerInner = styled('div')`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`;
 
 const StyledContent = styled(Grid)({
   display: 'flex',
@@ -367,7 +379,7 @@ const StyledInStock = styled(Typography)`
   font-weight: 700;
   line-height: 24px;
   letter-spacing: 0.2px;
-  color: #23A6F0;
+  color: #23a6f0;
 `;
 
 const StyledHr = styled('hr')({

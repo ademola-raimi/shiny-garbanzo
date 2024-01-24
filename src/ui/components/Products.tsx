@@ -37,9 +37,9 @@ const Products: React.FC<ProductsProps> = ({
   return (
     <ContainerWrapper>
       <SectionWrapper>
-        <FeaturedText>Featured Products</FeaturedText>
-        <BestsellerText>BESTSELLER PRODUCTS</BestsellerText>
-        <ParagraphText>
+        <FeaturedText isIndex={isIndex.toString()}>Featured Products</FeaturedText>
+        <BestsellerText isIndex={isIndex.toString()}>BESTSELLER PRODUCTS</BestsellerText>
+        <ParagraphText isIndex={isIndex.toString()}>
           Problems trying to resolve the conflict between
         </ParagraphText>
       </SectionWrapper>
@@ -108,39 +108,40 @@ const SectionWrapper = styled('div')({
   gap: '10px',
 });
 
-const FeaturedText = styled(Typography)`
-  font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: 0.2px;
-  line-height: 30px;
-  color: #737373;
-  text-align: center;
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
-`;
+const FeaturedText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: '20px',
+  fontWeight: 400,
+  lineHeight: '30px',
+  letterSpacing: '0.2px',
+  color: '#737373',
+  textAlign: 'center',
+  display: !!isIndex ? 'block' : 'none',
+  '@media screen and (max-width: 767px)': {
+    display: 'none',
+  },
+}));
 
-const BestsellerText = styled(Typography)`
-  font-family: 'Montserrat', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 32px;
-  letter-spacing: 0.1px;
-  color: #252b42;
-  text-align: center;
-`;
+const BestsellerText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: '24px',
+  fontWeight: 700,
+  lineHeight: '32px',
+  letterSpacing: '0.1px',
+  color: '#252b42',
+  textAlign: !isIndex ? 'left' : 'center',
+}));
 
-const ParagraphText = styled(Typography)`
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0.2px;
-  color: #737373;
-  text-align: center;
-`;
+const ParagraphText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: '14px',
+  fontWeight: 400,
+  lineHeight: '20px',
+  letterSpacing: '0.2px',
+  color: '#737373',
+  textAlign: 'center',
+  display: !!isIndex ? 'block' : 'none',
+}));
 
 const StyledCard = styled(Card)({
   maxWidth: '183px',
