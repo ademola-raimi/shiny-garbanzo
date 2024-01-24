@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-// import Image from 'next/image';
-// import Card from '../ui/components/Card';
 import styles from '../../styles/Home.module.css';
-// import UserCard from '../ui/home/UserCard';
 import Navbar from '../../ui/components/Navbar';
 import Footer from '../../ui/components/Footer';
 import Product from '../../ui/components/Product';
@@ -13,7 +10,7 @@ import Logos from '../../ui/components/Logos';
 import ProductDescription from '../../ui/components/ProductDescription';
 import Divider from '../../ui/components/Divider';
 import { useDispatch, useSelector } from '../../store/store';
-import { setProduct, setLoading } from '../../store/slices/productSlice';
+import { setProduct, setLoading, setCurrentImageIndex } from '../../store/slices/productSlice';
 import { setHideLoadMore, setBestSellerProducts } from '../../store/slices/productsSlice';
 
 const ProductPage = () => {
@@ -52,8 +49,9 @@ const ProductPage = () => {
   
   useEffect(() => {
     if (productId) {
+      dispatch(setCurrentImageIndex(0));
       fetchProduct();
-    }
+    }    
   }, [productId]); // Fetch products on component mount
 
   useEffect(() => {

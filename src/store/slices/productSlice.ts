@@ -1,7 +1,7 @@
-// store/slices/productSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+import { ProductState } from '../../types';
 
-const initialState = {
+const initialState: ProductState = {
   product: null,
   loading: true,
   currentImageIndex: 0,

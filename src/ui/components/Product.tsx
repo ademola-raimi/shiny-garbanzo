@@ -1,30 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Typography, Button, Grid, Chip, Snackbar } from "@mui/material";
 import styled from "@emotion/styled";
 import { getCurrentPrice } from "../../utils";
 import { useDispatch, useSelector } from '../../store/store';
 import { setCurrentImageIndex } from '../../store/slices/productSlice';
 import { addToBasket, addToWishlist } from '../../store/slices/productsSlice';
+import { ProductType } from '../../types';
 
 const Product = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { product, loading, currentImageIndex } = useSelector((state) => state.product);
+  const { product, loading, currentImageIndex } = useSelector((state) => (state.product));
   const { basket, wishlist } = useSelector((state) => state.products);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Check if the product is in the basket or wishlist
-  const isInBasket = basket.some((item) => item.id === product.id);
-  const isInWishlist = wishlist.some((item) => item.id === product.id);
+  const isInBasket = basket.some((item: ProductType) => item.id === product?.id) || false;
+  const isInWishlist = wishlist.some((item: ProductType) => item.id === product?.id) || false;
 
   const handleAddToBasket = () => {
-    if (isInBasket) return;
-    dispatch(addToBasket(product));
+    if (isInBasket || !product) return;
+    const productCopy: ProductType | null  = {...product};
+    productCopy.quantity = 1;
+    dispatch(addToBasket(productCopy));
     setSnackbarOpen(true);
   };
 
   const handleAddToWishlist = () => {
-    if (isInWishlist) return;
-    dispatch(addToWishlist(product));
+    if (isInWishlist || !product) return;
+    const productCopy: ProductType  = {...product};
+    productCopy.quantity = 1;
+    dispatch(addToWishlist(productCopy));
     setSnackbarOpen(true);
   };
 
@@ -32,7 +37,8 @@ const Product = (): JSX.Element => {
     setSnackbarOpen(false);
   };
 
-  const handleChevronClick = (direction) => {
+  const handleChevronClick = (direction: string) => {
+    if (!product) return;
     const lastIndex = product.images.length - 1;
 
     dispatch((dispatch, getState) => {
@@ -50,7 +56,7 @@ const Product = (): JSX.Element => {
     });
   };
 
-  const handleThumbnailClick = (index) => {
+  const handleThumbnailClick = (index: number) => {
     dispatch(setCurrentImageIndex(index));
   };
 
@@ -58,7 +64,7 @@ const Product = (): JSX.Element => {
     <StyledContainer>
       {product && (
         <StyledContent container spacing={0}>
-          <StyledImageContainer item>
+          <StyledImageContainer>
             <StyledImage>
               <StyledProductImage>
                 <StyledImageOverlay productImage={product?.images?.[currentImageIndex]}>
@@ -103,16 +109,16 @@ const Product = (): JSX.Element => {
                       {product.stock > 0 ? (
                         <StyledInStock>In Stock</StyledInStock>
                       ) : (
-                        <Chip label="Sold Out" color="dark" />
+                        <Chip label="Sold Out" />
                       )}
                   </StyledAvailability>
                   <StyledParagraph>{""}</StyledParagraph>
-                  <StyledHr alt="Hr" src="hr.svg" />
+                  <StyledHr />
                   <StyledColorOptions>
-                      <StyledColorOption />
-                      <StyledColorOption />
-                      <StyledColorOption />
-                      <StyledColorOption />
+                      <StyledColorOption color="#23A6F0" />
+                      <StyledColorOption color="#2DC071" />
+                      <StyledColorOption color="#E77C40" />
+                      <StyledColorOption color="#252B42" />
                   </StyledColorOptions>
                   <StyledActions>
                       <StyledSelectOptions>
@@ -124,13 +130,11 @@ const Product = (): JSX.Element => {
                   </StyledActions>
               </StyledContainer>
             </StyledText>
-            <StyledButton>
-              {/* Your button content */}
-            </StyledButton>
             <Snackbar
               open={snackbarOpen}
               autoHideDuration={3000}
               onClose={handleSnackbarClose}
+              anchorOrigin={{ vertical: 'bottom', horizontal:  'right'}}
               message="Item added successfully!"
             />
           </StyledImageContainer>
@@ -157,7 +161,7 @@ const StyledCaptionsContainer = styled.div`
   left: 0;
 `;
 
-const StyledCaptionImage = styled("img")`
+const StyledCaptionImage = styled("img")<{ isActive?: boolean }>`
   width: 50px; 
   height: 50px;
   margin-right: 10px;
@@ -194,12 +198,6 @@ const StyledImageContainer = styled(Box)({
   flex: "0 0 auto",
 });
 
-// const StyledImage = styled(Box)({
-//   position: "relative",
-//   width: "510px",
-//   height: "550px",
-// });
-
 const StyledProductImage = styled(Box)({
   position: "relative",
   width: "506px",
@@ -207,7 +205,7 @@ const StyledProductImage = styled(Box)({
   borderRadius: "5px",
 });
 
-const StyledImageOverlay = styled(Box)(({ productImage }) => ({
+const StyledImageOverlay = styled(Box)<{ productImage: string }>(({ productImage }) => ({
   position: "absolute",
   width: "506px",
   height: "450px",
@@ -218,12 +216,11 @@ const StyledImageOverlay = styled(Box)(({ productImage }) => ({
   backgroundPosition: "50% 50%",
 }));
 
-const StyledSecondImage = styled(Box)(({ productImage }) => ({
+const StyledSecondImage = styled(Box)({
   height: "450px",
-  backgroundImage: `url(${productImage})`, // Dynamic image URL
   backgroundSize: "cover",
   backgroundPosition: "50% 50%",
-}));
+});
 
 const StyledCarouselControl = styled("img")({
   position: "absolute",
@@ -301,13 +298,13 @@ const StyledTitle = styled(Typography)({
     color: "#848484",
   });
   
-  const StyledHr = styled("img")({
+  const StyledHr = styled("hr")({
     position: "absolute",
     width: "445px",
     height: "1px",
     top: "276px",
     left: "25px",
-    objectFit: "cover",
+    background: '#BDBDBD',
   });
   
   const StyledColorOptions = styled(Box)({
@@ -319,12 +316,12 @@ const StyledTitle = styled(Typography)({
     left: "24px",
   });
   
-  const StyledColorOption = styled(Box)({
-    backgroundColor: "var(--primary-color)",
+  const StyledColorOption = styled(Box)<{ color: string }>(({ color }) => ({
+    backgroundColor: color,
     width: "30px",
     height: "30px",
     borderRadius: "15px",
-  });
+  }));
   
   const StyledActions = styled(Box)({
     display: "flex",
@@ -352,11 +349,10 @@ const StyledTitle = styled(Typography)({
     cursor: disabled ? "not-allowed" : "pointer",
     filter: disabled ? "grayscale(100%)" : "none",
     opacity: disabled ? 0.5 : 1,
-
   }));
 
 
-function getTextStyles(prefix) {
+function getTextStyles(prefix: string) {
   return {
     fontFamily: `var(${prefix}-font-family)`,
     fontWeight: `var(${prefix}-font-weight)`,

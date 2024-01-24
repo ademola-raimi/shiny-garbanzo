@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-// import Image from 'next/image';
-// import Card from '../ui/components/Card';
 import styles from '../styles/Home.module.css';
-// import UserCard from '../ui/home/UserCard';
 import Navbar from '../ui/components/Navbar';
 import Footer from '../ui/components/Footer';
 import BannerCards from '../ui/components/BannerCard';
@@ -18,7 +15,7 @@ import { setHideLoadMore, setLoading, setPage, setProducts } from '../store/slic
 
 const Home: NextPage = () => {
   const dispatch = useDispatch();
-  const { products, page, limit } = useSelector((state) => state.products);
+  const { page, limit } = useSelector((state) => state.products);
 
   const fetchProducts = async () => {
     try {
@@ -37,6 +34,7 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
+    dispatch(setHideLoadMore(false));
     fetchProducts();
   }, []); // Fetch products on component mount
 
@@ -57,42 +55,8 @@ const Home: NextPage = () => {
         <FeaturedPost />
         <Testimonials />
         <Action />
-        {/* <UserCard /> */}
-
-        {/* <div className={styles.grid}>
-          <Card
-            title={'Box 1'}
-            text={'Find in-depth information about Next.js features and API.'}
-          />
-          <Card
-            title={'Box 2'}
-            text={'Find in-depth information about Next.js features and API.'}
-          />
-          <Card
-            title={'Box 3'}
-            text={'Find in-depth information about Next.js features and API.'}
-          />
-          <Card
-            title={'Box 4'}
-            text={'Find in-depth information about Next.js features and API.'}
-          />
-        </div> */}
       </main>
-
       <Footer />
-
-      {/* <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer> */}
     </div>
   );
 };

@@ -11,22 +11,27 @@ import {
   Button,
 } from '@mui/material';
 import { useSelector } from '../../store/store';
-import {
-  setProducts,
-  setPage,
-  setLoading,
-  setHideLoadMore,
-} from '../../store/slices/productsSlice';
 import { getCurrentPrice } from '../../utils';
+import { ProductsType } from '../../types';
 
-const Products = ({ isIndex, fetchProducts }): JSX.Element => {
+interface ProductsProps {
+  isIndex: boolean;
+  fetchProducts?: () => void;
+}
+
+const Products: React.FC<ProductsProps> = ({
+  isIndex,
+  fetchProducts,
+}): JSX.Element => {
   const { products, bestSellerProduct, loading, hideLoadMore } = useSelector(
     (state) => state.products
   );
-  const _products = isIndex ? products : bestSellerProduct;
+  const _products: ProductsType = isIndex ? products : bestSellerProduct;
 
   const handleLoadMore = () => {
-    fetchProducts();
+    if (fetchProducts) {
+      fetchProducts();
+    }
   };
 
   return (
@@ -42,7 +47,7 @@ const Products = ({ isIndex, fetchProducts }): JSX.Element => {
           Problems trying to resolve the conflict between
         </ParagraphText>
       </SectionWrapper>
-      <Grid container gap={"30px"}>
+      <Grid container gap={'30px'}>
         {_products?.map((item) => (
           <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
             <Link href={`/products/${item.id}`} passHref>
@@ -95,7 +100,7 @@ const ContainerWrapper = styled('div')({
   padding: '80px 0',
   maxWidth: '1124px',
   width: '100%',
-  margin: '0 auto'
+  margin: '0 auto',
 });
 
 const SectionWrapper = styled('div')({
@@ -137,7 +142,7 @@ const ParagraphText = styled('p')<{ is_index: string }>(({ is_index }) => ({
 const StyledCard = styled(Card)({
   maxWidth: 183,
   margin: '0 10px',
-  // backgroundColor: "lightblue",
+  cursor: 'pointer',
   boxShadow: 'none',
 });
 

@@ -208,7 +208,7 @@ const Footer = (): JSX.Element => {
             </FooterSocial>
           </FooterLogoSection>
         </FooterTopContent>
-        <HorizontalRule alt="Hr stroke" src="hr-stroke.svg" />
+        {/* <HorizontalRule alt="Hr stroke" src="hr-stroke.svg" /> */}
       </FooterTop>
       <FooterBottom>
         <FooterBottomContent>
