@@ -3,12 +3,12 @@ import Topbar from "./Topbar";
 import Menubar from "./Menubar";
 
 const Navbar = () => {
-    return (
-        <>
-            <Topbar />
-            <Menubar />
-        </>
-    );
+  return (
+    <>
+      <Topbar />
+      <Menubar />
+    </>
+  );
 }
 
 export default Navbar;
