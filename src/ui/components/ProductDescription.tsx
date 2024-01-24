@@ -12,9 +12,9 @@ const ProductDescription = (): JSX.Element => {
       {product && (
         <StyledContentWrapper>
           <StyledTextSection>
-            <StyledParagraph>
+            <StyledTitle>
               {product.title}
-            </StyledParagraph>
+            </StyledTitle>
             <StyledParagraph>
               {product.description}
             </StyledParagraph>
@@ -33,27 +33,24 @@ const ProductDescription = (): JSX.Element => {
 
 
 const StyledContainer = styled(Box)({
-  display: "inline-flex",
-  flexDirection: "column",
-  alignItems: "center",
-  gap: "30px",
+  maxWidth: "1056px",
+  width: "100%",
+  margin: "0 auto",
   paddingTop: "24px",
   paddingBottom: "48px",
 });
 
 const StyledContentWrapper = styled(Box)({
   display: "flex",
-  width: "1056px",
   alignItems: "flex-start",
   gap: "30px",
-  position: "relative",
-  marginInline: "auto",
 });
 
-const StyledTextSection = styled(Box)({
+const StyledTextSection = styled('div')({
   display: "flex",
   flexDirection: "column",
-  width: "599px",
+  maxWidth: "599px",
+  width: "100%",
   alignItems: "flex-start",
   gap: "30px",
   paddingTop: 0,
@@ -63,10 +60,23 @@ const StyledTextSection = styled(Box)({
   overflow: "hidden",
 });
 
+const StyledTitle = styled(Typography)({
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: "24px",
+  fontWeight: 700,
+  lineHeight: "32px",
+  letterSpacing: '0.1px',
+  color: '#252B42'
+});
+
 const StyledParagraph = styled(Typography)({
   fontFamily: "'Montserrat', sans-serif",
-  fontSize: "20px",
-  lineHeight: "30px",
+  fontSize: "14px",
+  fontWeight: 400,
+  lineHeight: "20px",
+  letterSpacing: '0.2px',
+  color: '#737373',
+  maxWidth: "513px",
 });
 
 const StyledImageWrapper = styled(Box)({

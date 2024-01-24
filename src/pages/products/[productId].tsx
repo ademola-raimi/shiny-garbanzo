@@ -71,9 +71,9 @@ const ProductPage = () => {
       <main className={styles.main}>
         <Navbar />
         <Product />
+        <Divider />
         <ProductDescription />
         <Products isIndex={false} fetchProducts={undefined} />
-        <Divider />
         <Logos />
       </main>
 
