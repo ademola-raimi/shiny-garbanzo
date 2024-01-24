@@ -87,9 +87,9 @@ const Product = (): JSX.Element => {
   return (
     <>
       <StyledBreadcrumbsWrapper>
-        <StyledBreadcrumbs separator="›" aria-label="breadcrumb">
+        <Breadcrumbs separator="›" aria-label="breadcrumb">
           {breadcrumbs}
-        </StyledBreadcrumbs>
+        </Breadcrumbs>
       </StyledBreadcrumbsWrapper>
       <StyledContainer>
         {product && (
@@ -148,7 +148,6 @@ const Product = (): JSX.Element => {
                       <Chip label="Sold Out" />
                     )}
                   </StyledAvailability>
-                  <StyledParagraph>{''}</StyledParagraph>
                   <StyledHr />
                   <StyledColorOptions>
                     <StyledColorOption color="#23A6F0" />
@@ -200,8 +199,6 @@ const StyledBreadcrumbsWrapper = styled('div')`
   padding: 24px 16px 24px 38px;
   text-align: left;
 `;
-
-const StyledBreadcrumbs = styled(Breadcrumbs)``;
 
 const Breadcrumb = styled(Link)`
   font-family: 'Montserrat', sans-serif;
@@ -261,10 +258,9 @@ const StyledContent = styled(Grid)({
   paddingLeft: 0,
 });
 
-const StyledImageContainer = styled(Box)({
+const StyledImageContainer = styled(Grid)({
   display: 'flex',
-  gap: '30px',
-  flex: '0 0 auto',
+  gap: '34px',
 });
 
 const StyledProductImage = styled(Box)({
@@ -275,7 +271,8 @@ const StyledProductImage = styled(Box)({
 
 const StyledImageOverlay = styled(Box)<{ productImage: string }>(
   ({ productImage }) => ({
-    width: '506px',
+    maxWidth: '506px',
+    width: '100%',
     height: '450px',
     backgroundImage: `url(${productImage})`, // Dynamic image URL
     backgroundSize: 'cover',
@@ -297,28 +294,36 @@ const StyledCarouselControl = styled('img')({
   cursor: 'pointer',
 });
 
-const StyledText = styled(Typography)({
-  // Add your text styles here
-});
+const StyledText = styled('div')`
+  padding: 11px 24px;
+`;
 
 const StyledButton = styled(Button)({
   // Add your button styles here
 });
 
-const StyledTitle = styled(Typography)({
-  top: '10px',
-  left: '24px',
-  ...getTextStyles('--h-4'),
-});
+const StyledTitle = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0.2px;
+  color: #252b42;
+  margin-bottom: 12px;
+`;
 
-const StyledReviews = styled(Box)({
-  display: 'flex',
-  alignItems: 'start',
-  gap: '10px',
-
-  top: '53px',
-  left: '24px',
-});
+const StyledReviews = styled('div')`
+  display: flex;
+  alignitems: center;
+  gap: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #737373;
+  margin-bottom: 20px;
+`;
 
 const StyledStars = styled('img')({
   flex: '0 0 auto',
@@ -329,12 +334,14 @@ const StyledReviewsText = styled(Typography)({
   color: 'var(--second-text-color)',
 });
 
-const StyledPrice = styled(Typography)({
-  top: '96px',
-  left: '26px',
-  ...getTextStyles('--h-3'),
-  textAlign: 'center',
-});
+const StyledPrice = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.1px;
+  color: #252b42;
+`;
 
 const StyledAvailability = styled(Box)({
   display: 'flex',
@@ -345,21 +352,23 @@ const StyledAvailability = styled(Box)({
   left: '24px',
 });
 
-const StyledAvailabilityText = styled(Typography)({
-  ...getTextStyles('--h-6'),
-  color: 'var(--second-text-color)',
-});
+const StyledAvailabilityText = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #737373;
+`;
 
-const StyledInStock = styled(Typography)({
-  ...getTextStyles('--h-6'),
-  color: 'var(--primary-color)',
-});
-
-const StyledParagraph = styled(Typography)({
-  top: '189px',
-  left: '24px',
-  color: '#848484',
-});
+const StyledInStock = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #23A6F0;
+`;
 
 const StyledHr = styled('hr')({
   width: '445px',
