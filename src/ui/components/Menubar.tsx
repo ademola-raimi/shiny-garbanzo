@@ -1,7 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/system';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, Drawer } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useSelector } from '../../store/store';
+import Modal from './Modal';
+
+
+const Menubar = (): JSX.Element => {
+  const [isCartOpen, setCartOpen] = useState(false);
+  const [isWishlistOpen, setWishlistOpen] = useState(false);
+
+  const basketItems = useSelector((state) => state.products.basket);
+  const wishlistItems = useSelector((state) => state.products.wishlist);
+
+  const handleCartToggle = () => {
+    setCartOpen(!isCartOpen);
+  };
+  const handleWishlistToggle = () => {
+    setWishlistOpen(!isWishlistOpen);
+  };
+
+  return (
+    <StyledNavbarLight>
+      <Brand>
+        <BrandText>Bandage</BrandText>
+      </Brand>
+      <NavLinksContainer>
+        <NavLink>
+          <NavLinkItem>
+            <NavLinkText>Home</NavLinkText>
+          </NavLinkItem>
+          <NavLinkItem>
+            <NavLinkText style={{ fontWeight: 500, color: '#252B42' }}>
+              Shop
+              <ExpandMoreIcon />
+            </NavLinkText>
+          </NavLinkItem>
+          <NavLinkItem>
+            <NavLinkText>About</NavLinkText>
+          </NavLinkItem>
+          <NavLinkItem>
+            <NavLinkText>Blog</NavLinkText>
+          </NavLinkItem>
+          <NavLinkItem>
+            <NavLinkText>Contact</NavLinkText>
+          </NavLinkItem>
+          <NavLinkItem>
+            <NavLinkText>Pages</NavLinkText>
+          </NavLinkItem>
+        </NavLink>
+        <ActionButtons>
+          <ActionButton>
+            <AvatarIcon
+              alt="Avatar icn"
+              src="/icons/avatar.svg"
+            />
+            <ActionButtonText>Login / Register</ActionButtonText>
+          </ActionButton>
+          <ActionButton>
+            <ActionButtonIcon alt="Li" src="/icons/search.svg" />
+          </ActionButton>
+          <ActionButton onClick={handleCartToggle}>
+            <ActionButtonIcon
+              alt="basket icn"
+              src="/icons/basket.svg"
+            />
+            <ActionButtonText>{basketItems.length}</ActionButtonText>
+          </ActionButton>
+          <ActionButton onClick={handleWishlistToggle}>
+            <ActionButtonIcon alt="love icn" src="/icons/love.svg" />
+            <ActionButtonText>{wishlistItems.length}</ActionButtonText>
+          </ActionButton>
+        </ActionButtons>
+      </NavLinksContainer>
+      <Modal
+        open={isCartOpen}
+        handleToggle={handleCartToggle}
+        title={"Cart"}
+        items={basketItems}
+      />
+      <Modal
+        open={isWishlistOpen}
+        handleToggle={handleWishlistToggle}
+        title={"Wish List"}
+        items={wishlistItems}
+      />
+    </StyledNavbarLight>
+  );
+};
+
 
 const StyledNavbarLight = styled('div')({
   maxWidth: '1440px',
@@ -94,63 +181,5 @@ const ActionButtonText = styled(Typography)({
   lineHeight: '24px',
   color: 'rgba(35, 166, 240, 1)',
 });
-
-const Menubar = (): JSX.Element => {
-  return (
-    <StyledNavbarLight>
-      <Brand>
-        <BrandText>Bandage</BrandText>
-      </Brand>
-      <NavLinksContainer>
-        <NavLink>
-          <NavLinkItem>
-            <NavLinkText>Home</NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText style={{ fontWeight: 500, color: '#252B42' }}>
-              Shop
-              <ExpandMoreIcon />
-            </NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>About</NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>Blog</NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>Contact</NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>Pages</NavLinkText>
-          </NavLinkItem>
-        </NavLink>
-        <ActionButtons>
-          <ActionButton>
-            <AvatarIcon
-              alt="Avatar icn"
-              src="/icons/avatar.svg"
-            />
-            <ActionButtonText>Login / Register</ActionButtonText>
-          </ActionButton>
-          <ActionButton>
-            <ActionButtonIcon alt="Li" src="/icons/search.svg" />
-          </ActionButton>
-          <ActionButton>
-            <ActionButtonIcon
-              alt="basket icn"
-              src="/icons/basket.svg"
-            />
-            <ActionButtonText>1</ActionButtonText>
-          </ActionButton>
-          <ActionButton>
-            <ActionButtonIcon alt="love icn" src="/icons/love.svg" />
-            <ActionButtonText>1</ActionButtonText>
-          </ActionButton>
-        </ActionButtons>
-      </NavLinksContainer>
-    </StyledNavbarLight>
-  );
-};
 
 export default Menubar;

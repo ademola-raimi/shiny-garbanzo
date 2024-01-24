@@ -43,6 +43,25 @@ const productsSlice = createSlice({
       state.wishlist = [...state.wishlist, action.payload];
       localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
     },
+    removeFromCart: (state, action) => {
+      state.basket = state.basket.filter(item => item.id !== action.payload);
+      localStorage.setItem('basket', JSON.stringify(state.basket));
+    },
+
+    incrementQuantity: (state, action) => {
+      const item = state.basket.find(item => item.id === action.payload);
+      if (item) {
+        item.quantity += 1;
+        localStorage.setItem('basket', JSON.stringify(state.basket));
+      }
+    },
+    decrementQuantity: (state, action) => {
+      const item = state.basket.find(item => item.id === action.payload);
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
+        localStorage.setItem('basket', JSON.stringify(state.basket));
+      }
+    },
   },
 });
 
@@ -54,6 +73,9 @@ export const {
   setBestSellerProducts,
   addToBasket,
   addToWishlist,
+  removeFromCart,
+  incrementQuantity,
+  decrementQuantity,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

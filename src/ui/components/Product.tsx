@@ -13,17 +13,21 @@ const Product = (): JSX.Element => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Check if the product is in the basket or wishlist
-  const isInBasket = basket.some((item) => item.id === product.id);
-  const isInWishlist = wishlist.some((item) => item.id === product.id);
+  const isInBasket = basket.some((item) => item.id === product?.id) || false;
+  const isInWishlist = wishlist.some((item) => item.id === product?.id) || false;
 
   const handleAddToBasket = () => {
     if (isInBasket) return;
-    dispatch(addToBasket(product));
+    const productCopy = {...product};
+    productCopy.quantity = 1;
+    dispatch(addToBasket(productCopy));
     setSnackbarOpen(true);
   };
 
   const handleAddToWishlist = () => {
     if (isInWishlist) return;
+    const productCopy = {...product};
+    productCopy.quantity = 1;
     dispatch(addToWishlist(product));
     setSnackbarOpen(true);
   };
