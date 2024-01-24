@@ -37,9 +37,9 @@ const Products: React.FC<ProductsProps> = ({
   return (
     <ContainerWrapper>
       <SectionWrapper>
-        <FeaturedText isIndex={isIndex.toString()}>Featured Products</FeaturedText>
-        <BestsellerText isIndex={isIndex.toString()}>BESTSELLER PRODUCTS</BestsellerText>
-        <ParagraphText isIndex={isIndex.toString()}>
+        <FeaturedText isIndex={isIndex}>Featured Products</FeaturedText>
+        <BestsellerText isIndex={isIndex}>BESTSELLER PRODUCTS</BestsellerText>
+        <ParagraphText isIndex={isIndex}>
           Problems trying to resolve the conflict between
         </ParagraphText>
       </SectionWrapper>
@@ -108,7 +108,7 @@ const SectionWrapper = styled('div')({
   gap: '10px',
 });
 
-const FeaturedText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
+const FeaturedText = styled('div')<{ isIndex: boolean }>(({ isIndex }) => ({
   fontFamily: "'Montserrat', sans-serif",
   fontSize: '20px',
   fontWeight: 400,
@@ -122,7 +122,7 @@ const FeaturedText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
   },
 }));
 
-const BestsellerText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
+const BestsellerText = styled('div')<{ isIndex: boolean }>(({ isIndex }) => ({
   fontFamily: "'Montserrat', sans-serif",
   fontSize: '24px',
   fontWeight: 700,
@@ -132,7 +132,7 @@ const BestsellerText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
   textAlign: !isIndex ? 'left' : 'center',
 }));
 
-const ParagraphText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
+const ParagraphText = styled('div')<{ isIndex: boolean }>(({ isIndex }) => ({
   fontFamily: "'Montserrat', sans-serif",
   fontSize: '14px',
   fontWeight: 400,
@@ -140,7 +140,7 @@ const ParagraphText = styled('div')<{ isIndex: string }>(({ isIndex }) => ({
   letterSpacing: '0.2px',
   color: '#737373',
   textAlign: 'center',
-  display: !!isIndex ? 'block' : 'none',
+  display: isIndex ? 'block' : 'none',
 }));
 
 const StyledCard = styled(Card)({
