@@ -94,8 +94,8 @@ const Product = (): JSX.Element => {
       <StyledContainer>
         {product && (
           <StyledContent container spacing={0}>
-            <StyledImageContainer>
-              <StyledImage>
+            <Grid container gap="30px">
+              <Grid xs={12} md={5.7}>
                 <StyledProductImage>
                   <StyledImageOverlay
                     productImage={product?.images?.[currentImageIndex]}
@@ -115,8 +115,9 @@ const Product = (): JSX.Element => {
                     onClick={() => handleChevronClick('left')}
                   />
                 </StyledProductImage>
-              </StyledImage>
-              <StyledText>
+              </Grid>
+              <div>
+              <StyledText style={{ maxWidth: 'none' }} xs={12} md={6}>
                 <StyledContainerInner>
                   <div>
                     <StyledTitle>{product.brand}</StyledTitle>
@@ -142,7 +143,7 @@ const Product = (): JSX.Element => {
                       )}
                     </StyledAvailability>
                   </div>
-                  <div>
+                  <SecondSection>
                     <StyledHr />
                     <StyledColorOptions>
                       <StyledColorOption color="#23A6F0" />
@@ -168,9 +169,10 @@ const Product = (): JSX.Element => {
                       />
                       <StyledIcon alt="More" src="/icons/more-2.svg" />
                     </StyledActions>
-                  </div>
+                  </SecondSection>
                 </StyledContainerInner>
               </StyledText>
+              </div>
               <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={3000}
@@ -178,8 +180,8 @@ const Product = (): JSX.Element => {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 message="Item added successfully!"
               />
-            </StyledImageContainer>
-            <StyledCaptionsContainer>
+            </Grid>
+            <StyledCaptionsContainer xs={12} md={6}>
               {product?.images?.map((image, index) => (
                 <StyledCaptionImage
                   key={index}
@@ -227,12 +229,13 @@ const BreadcrumbText = styled(Typography)`
   color: #bdbdbd;
 `;
 
-const StyledImage = styled.div`
-  /* Your image styles */
-  position: relative;
+const SecondSection = styled('div')`
+  @media (min-width: 768px) {
+    margin-top: 100px;
+  }
 `;
 
-const StyledCaptionsContainer = styled.div`
+const StyledCaptionsContainer = styled(Grid)`
   display: flex;
 `;
 
@@ -270,18 +273,15 @@ const StyledContent = styled(Grid)({
   paddingLeft: 0,
 });
 
-const StyledImageContainer = styled(Grid)({
-  display: 'flex',
-  gap: '34px',
-});
-
-const StyledProductImage = styled(Box)({
-  width: '506px',
+const StyledProductImage = styled('div')({
+  maxWidth: '506px',
+  width: '100%',
   height: '450px',
   borderRadius: '5px',
+  position: 'relative'
 });
 
-const StyledImageOverlay = styled(Box)<{ productImage: string }>(
+const StyledImageOverlay = styled('div')<{ productImage: string }>(
   ({ productImage }) => ({
     maxWidth: '506px',
     width: '100%',
@@ -306,13 +306,9 @@ const StyledCarouselControl = styled('img')({
   cursor: 'pointer',
 });
 
-const StyledText = styled('div')`
+const StyledText = styled(Grid)`
   padding: 11px 24px;
 `;
-
-const StyledButton = styled(Button)({
-  // Add your button styles here
-});
 
 const StyledTitle = styled(Typography)`
   font-family: 'Montserrat', sans-serif;
@@ -383,10 +379,9 @@ const StyledInStock = styled(Typography)`
 `;
 
 const StyledHr = styled('hr')({
-  width: '445px',
+  maxWidth: '445px',
+  width: '100%',
   height: '1px',
-  top: '276px',
-  left: '25px',
   background: '#BDBDBD',
 });
 
@@ -394,7 +389,7 @@ const StyledColorOptions = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   gap: '10px',
-
+  marginTop: '20px',
   top: '306px',
   left: '24px',
 });
@@ -410,7 +405,7 @@ const StyledActions = styled(Box)({
   display: 'flex',
   alignItems: 'start',
   gap: '10px',
-
+  marginTop: '40px',
   top: '403px',
   left: '24px',
 });
@@ -420,7 +415,6 @@ const StyledSelectOptions = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   gap: '10px',
-  padding: '20px',
   backgroundColor: 'var(--primary-color)',
   borderRadius: '5px',
   overflow: 'hidden',
