@@ -2,11 +2,10 @@ import React from "react";
 import { styled } from "@mui/system";
 import { Container, Grid, Typography } from "@mui/material";
 
-const FeaturesContainer = styled(Container)`
-  position: relative;
-  width: 1440px;
-//   height: 632px;
-//   background-color: #f8f8f8;
+const FeaturesContainer = styled('div')`
+  max-width: 1050px !important;
+  width: 100%;
+  margin: 0 auto;
 `;
 
 const FeaturesContent = styled(Grid)`
@@ -15,8 +14,6 @@ const FeaturesContent = styled(Grid)`
   align-items: center;
   gap: 80px;
   padding: 80px 0;
-  position: relative;
-  // left: 195px;
 `;
 
 const TitleWrapper = styled(Grid)`
@@ -26,32 +23,43 @@ const TitleWrapper = styled(Grid)`
   gap: 10px;
 `;
 
+const FeaturedText = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 30px;
+  color: #737373;
+  text-align: center;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+`;
+
 const Title = styled(Typography)`
   font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
   font-size: 24px;
-  text-align: center;
-  letter-spacing: 0.10px;
+  font-weight: 700;
   line-height: 32px;
-  color: #000;
+  letter-spacing: 0.1px;
+  color: #252b42;
+  text-align: center;
 `;
 
 const Description = styled(Typography)`
   font-family: 'Montserrat', sans-serif;
-  font-weight: normal;
-  font-size: 16px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #737373;
   text-align: center;
-  letter-spacing: 0.5px;
-  line-height: 24px;
-  color: #767676;
 `;
 
 const FeatureCardContainer = styled(Grid)`
   display: flex;
-  items-start;
   justify-content: center;
-  gap: 30px;
-  position: relative;
 `;
 
 const FeatureCard = styled(Grid)`
@@ -90,9 +98,9 @@ const Features = (): JSX.Element => {
     <FeaturesContainer>
       <FeaturesContent container>
         <TitleWrapper item>
-          <Typography variant="h4" color="secondary" mt="-1px" textAlign="center">
+          <FeaturedText variant="h4">
             Featured Products
-          </Typography>
+          </FeaturedText>
           <Title>
             THE BEST SERVICES
           </Title>
@@ -100,8 +108,8 @@ const Features = (): JSX.Element => {
             Problems trying to resolve the conflict between
           </Description>
         </TitleWrapper>
-        <FeatureCardContainer item>
-          <FeatureCard>
+        <FeatureCardContainer container rowGap="30px">
+          <FeatureCard xs={12} lg={4} paddingX="35px" paddingY="40px" gap="20px">
             <Icon src="/icons/easy-win.svg" alt="Icon cool icon" />
             <FeatureTitle>
               Easy Wins
@@ -110,7 +118,7 @@ const Features = (): JSX.Element => {
               Get your best looking smile now!
             </FeatureDescription>
           </FeatureCard>
-          <FeatureCard>
+          <FeatureCard xs={12} lg={4} paddingX="35px" paddingY="40px" gap="20px">
             <Icon src="/icons/concrete.svg" alt="Icon cool icon" />
             <FeatureTitle>
               Concrete
@@ -119,7 +127,7 @@ const Features = (): JSX.Element => {
               Defalcate is most focused on helping you discover your most beautiful smile
             </FeatureDescription>
           </FeatureCard>
-          <FeatureCard>
+          <FeatureCard xs={12} lg={4} paddingX="35px" paddingY="40px" gap="20px">
             <Icon src="/icons/growth.svg" alt="Icon cool icon" />
             <FeatureTitle>
               Hack Growth
