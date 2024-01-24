@@ -48,10 +48,9 @@ const Products: React.FC<ProductsProps> = ({
         gap={'30px'}
         paddingY="8px"
         paddingX="24px"
-        style={{ maxWidth: '1035px' }}
       >
         {_products?.map((item) => (
-          <Grid key={item.id} item xs={12} sm={4} md={3} lg={2}>
+          <Grid key={item.id} item xs={12} sm={4} md={3} lg={2.1}>
             <Link href={`/products/${item.id}`} passHref>
               <StyledCard>
                 <StyledCardMedia image={`${item.thumbnail}`} />
@@ -135,8 +134,7 @@ const ParagraphText = styled(Typography)`
 `;
 
 const StyledCard = styled(Card)({
-  // maxWidth: 183,
-  margin: '0 10px',
+  maxWidth: 183,
   cursor: 'pointer',
   boxShadow: 'none',
 });
