@@ -31,9 +31,6 @@ const FeaturedText = styled(Typography)`
   line-height: 30px;
   color: #737373;
   text-align: center;
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
 `;
 
 const Title = styled(Typography)`
