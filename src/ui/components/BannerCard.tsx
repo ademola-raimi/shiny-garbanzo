@@ -97,7 +97,7 @@ const Container = (): JSX.Element => {
   return (
     <ContainerWrapper>
       <Grid container gap={'15px'}>
-        <Grid item classes="margin-auto" style={{ margin: '0 auto' }}>
+        <Grid item style={{ margin: '0 auto' }}>
           <Card>
             <CardImage>
               <FlexCol5>

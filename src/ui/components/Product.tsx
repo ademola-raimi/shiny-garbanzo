@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Typography, Button, Grid, Chip, Snackbar } from "@mui/material";
 import styled from "@emotion/styled";
 import { getCurrentPrice } from "../../utils";
 import { useDispatch, useSelector } from '../../store/store';
 import { setCurrentImageIndex } from '../../store/slices/productSlice';
 import { addToBasket, addToWishlist } from '../../store/slices/productsSlice';
-import { RootType, ProductType } from '../../types';
+import { ProductType } from '../../types';
 
 const Product = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Product = (): JSX.Element => {
   const isInWishlist = wishlist.some((item: ProductType) => item.id === product?.id) || false;
 
   const handleAddToBasket = () => {
-    if (isInBasket) return;
+    if (isInBasket || !product) return;
     const productCopy: ProductType | null  = {...product};
     productCopy.quantity = 1;
     dispatch(addToBasket(productCopy));
@@ -26,7 +26,7 @@ const Product = (): JSX.Element => {
   };
 
   const handleAddToWishlist = () => {
-    if (isInWishlist) return;
+    if (isInWishlist || !product) return;
     const productCopy: ProductType  = {...product};
     productCopy.quantity = 1;
     dispatch(addToWishlist(product));
@@ -37,7 +37,8 @@ const Product = (): JSX.Element => {
     setSnackbarOpen(false);
   };
 
-  const handleChevronClick = (direction) => {
+  const handleChevronClick = (direction: string) => {
+    if (!product) return;
     const lastIndex = product.images.length - 1;
 
     dispatch((dispatch, getState) => {
@@ -55,7 +56,7 @@ const Product = (): JSX.Element => {
     });
   };
 
-  const handleThumbnailClick = (index) => {
+  const handleThumbnailClick = (index: number) => {
     dispatch(setCurrentImageIndex(index));
   };
 
@@ -63,7 +64,7 @@ const Product = (): JSX.Element => {
     <StyledContainer>
       {product && (
         <StyledContent container spacing={0}>
-          <StyledImageContainer item>
+          <StyledImageContainer>
             <StyledImage>
               <StyledProductImage>
                 <StyledImageOverlay productImage={product?.images?.[currentImageIndex]}>
@@ -108,7 +109,7 @@ const Product = (): JSX.Element => {
                       {product.stock > 0 ? (
                         <StyledInStock>In Stock</StyledInStock>
                       ) : (
-                        <Chip label="Sold Out" color="dark" />
+                        <Chip label="Sold Out" />
                       )}
                   </StyledAvailability>
                   <StyledParagraph>{""}</StyledParagraph>
@@ -162,7 +163,7 @@ const StyledCaptionsContainer = styled.div`
   left: 0;
 `;
 
-const StyledCaptionImage = styled("img")`
+const StyledCaptionImage = styled("img")<{ isActive?: boolean }>`
   width: 50px; 
   height: 50px;
   margin-right: 10px;
@@ -212,7 +213,7 @@ const StyledProductImage = styled(Box)({
   borderRadius: "5px",
 });
 
-const StyledImageOverlay = styled(Box)(({ productImage }) => ({
+const StyledImageOverlay = styled(Box)<{ productImage: string }>(({ productImage }) => ({
   position: "absolute",
   width: "506px",
   height: "450px",
@@ -223,12 +224,11 @@ const StyledImageOverlay = styled(Box)(({ productImage }) => ({
   backgroundPosition: "50% 50%",
 }));
 
-const StyledSecondImage = styled(Box)(({ productImage }) => ({
+const StyledSecondImage = styled(Box)({
   height: "450px",
-  backgroundImage: `url(${productImage})`, // Dynamic image URL
   backgroundSize: "cover",
   backgroundPosition: "50% 50%",
-}));
+});
 
 const StyledCarouselControl = styled("img")({
   position: "absolute",
@@ -361,7 +361,7 @@ const StyledTitle = styled(Typography)({
   }));
 
 
-function getTextStyles(prefix) {
+function getTextStyles(prefix: string) {
   return {
     fontFamily: `var(${prefix}-font-family)`,
     fontWeight: `var(${prefix}-font-weight)`,

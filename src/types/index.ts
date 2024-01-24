@@ -18,7 +18,7 @@ export interface ProductType {
 export type ProductsType = ProductType[];
 
 export interface ProductState {
-    product: ProductType;
+    product: ProductType | null;
     loading: boolean;
     currentImageIndex: number;
     limit: number;
@@ -29,6 +29,10 @@ export interface ProductsState {
     bestSellerProduct: ProductsType;
     page: number; 
     loading: boolean;
+    limit: number;
+    hideLoadMore: boolean;
+    basket: ProductsType;
+    wishlist: ProductsType
 }
 
 export interface RootType  {

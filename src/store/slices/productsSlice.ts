@@ -1,12 +1,24 @@
-// reducers/products.js
 import { createSlice } from '@reduxjs/toolkit';
-import { ProductsType } from "../../types";
+import { ProductsState } from '../../types';
 
 // Load basket and wishlist from localStorage
-const initialBasket = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('basket')) || [] : [];
-const initialWishlist = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('wishlist')) || [] : [];
+const initialBasket = (() => {
+  if (typeof window !== 'undefined') {
+    const basketString = localStorage.getItem('basket');
+    return basketString ? JSON.parse(basketString) : [];
+  }
+  return [];
+})();
 
-const initialState = {
+const initialWishlist = (() => {
+  if (typeof window !== 'undefined') {
+    const wishlistString = localStorage.getItem('wishlist');
+    return wishlistString ? JSON.parse(wishlistString) : [];
+  }
+  return [];
+})();
+
+const initialState: ProductsState = {
   products: [],
   bestSellerProduct: [],
   page: 1,
@@ -51,14 +63,14 @@ const productsSlice = createSlice({
 
     incrementQuantity: (state, action) => {
       const item = state.basket.find(item => item.id === action.payload);
-      if (item) {
+      if (item && typeof item.quantity === 'number') {
         item.quantity += 1;
         localStorage.setItem('basket', JSON.stringify(state.basket));
       }
     },
     decrementQuantity: (state, action) => {
       const item = state.basket.find(item => item.id === action.payload);
-      if (item && item.quantity > 1) {
+      if (item && typeof item.quantity === 'number'&& item.quantity > 1) {
         item.quantity -= 1;
         localStorage.setItem('basket', JSON.stringify(state.basket));
       }

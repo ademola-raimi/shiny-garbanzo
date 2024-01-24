@@ -69,7 +69,9 @@ const _Modal: React.FC<ModalProps> = ({ open, handleToggle, items, title }) => {
                                     <IconButton size="small" onClick={() => handleIncrement(item.id)}>
                                         <AddIcon />
                                     </IconButton>
-                                    <Typography variant="body2" sx={{ ml: 1 }}>${getCurrentPrice(item.price, item.discountPercentage) * item.quantity}</Typography>
+                                    <Typography variant="body2" sx={{ ml: 1 }}>
+                                        ${Number(getCurrentPrice(item?.price, item?.discountPercentage) ?? 0) * (item?.quantity ?? 0)}
+                                    </Typography>
                                     <IconButton size="small" onClick={() => handleDelete(item.id)}>
                                         <DeleteIcon />
                                     </IconButton>
