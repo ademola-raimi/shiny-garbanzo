@@ -27,7 +27,7 @@ const SectionContainer = styled("div")`
 `;
 
 const Title = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 16px;
   color: #252b42;
@@ -37,7 +37,7 @@ const Title = styled(Typography)`
 `;
 
 const Subtitle = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 28px;
   color: #23a6f0;
@@ -47,7 +47,7 @@ const Subtitle = styled(Typography)`
 `;
 
 const Paragraph = styled(Typography)`
-  font-family: 'Montserrat', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: normal;
   font-size: 16px;
   color: #727272;
@@ -57,7 +57,7 @@ const Paragraph = styled(Typography)`
 `;
 
 const Price = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 24px;
   color: #23a6f0;
@@ -81,7 +81,7 @@ const ActionButton = styled(Button)`
 `;
 
 const CallToActionText = styled(Typography)`
-  font-family: 'Montserrat', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: normal;
   font-size: 16px;
   color: #fff;

@@ -37,7 +37,7 @@ const SettingsContainer = styled.div`
 `;
 
 const UserInfoText = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -51,7 +51,7 @@ const FollowUsContainer = styled.div`
 `;
 
 const FollowUsText = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -68,7 +68,7 @@ const SocialsColMd = styled('div')({
 });
 
 const FollowText = styled(Typography)({
-  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: '14px',
   fontStyle: 'normal',
   fontWeight: 700,

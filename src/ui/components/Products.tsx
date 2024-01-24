@@ -37,7 +37,7 @@ const Products: React.FC<ProductsProps> = ({
   return (
     <ContainerWrapper>
       <SectionWrapper>
-        <FeaturedText is_index={isIndex.toString()}>
+        <FeaturedText>
           Featured Products
         </FeaturedText>
         <BestsellerText is_index={isIndex.toString()}>
@@ -111,15 +111,18 @@ const SectionWrapper = styled('div')({
   gap: '10px',
 });
 
-const FeaturedText = styled('div')<{ is_index: string }>(({ is_index }) => ({
-  margin: '-1px 0 0',
-  fontFamily: 'var(--h-4-font-style)',
-  fontWeight: 'var(--h-4-font-weight)',
-  fontSize: 'var(--h-4-font-size)',
-  color: 'var(--second-text-color)',
-  textAlign: 'center',
-  display: !!is_index ? 'block' : 'none',
-}));
+const FeaturedText = styled(Typography)`
+  font-family: "'Montserrat', sans-serif";
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 30px;
+  color: #737373;
+  text-align: ;center;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+`;
 
 const BestsellerText = styled('div')<{ is_index: string }>(({ is_index }) => ({
   fontFamily: 'var(--h-3-font-style)',

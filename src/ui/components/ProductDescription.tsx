@@ -64,7 +64,7 @@ const StyledTextSection = styled(Box)({
 });
 
 const StyledParagraph = styled(Typography)({
-  fontFamily: "'Montserrat-Regular', Helvetica",
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: "20px",
   lineHeight: "30px",
 });

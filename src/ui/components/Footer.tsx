@@ -57,7 +57,7 @@ const FooterLogo = styled("div")`
 `;
 
 const LogoText = styled(Typography)`
-  font-family: "Montserrat-Bold", Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -106,7 +106,7 @@ const FooterColumn = styled("div")`
 `;
 
 const FooterColumnTitle = styled(Typography)`
-  font-family: "Montserrat-Bold", Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
@@ -116,7 +116,7 @@ const FooterColumnTitle = styled(Typography)`
 `;
 
 const FooterLink = styled(Typography)`
-  font-family: "Montserrat-Regular", Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -147,7 +147,7 @@ const FooterInput = styled("input")`
   width: 100%;
   height: 100%;
   padding: 14px 20px;
-  font-family: "Montserrat-Regular", Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -178,7 +178,7 @@ const SubscribeButtonContent = styled("div")`
 `;
 
 const SubscribeButtonText = styled(Typography)`
-  font-family: "Montserrat-Regular", Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

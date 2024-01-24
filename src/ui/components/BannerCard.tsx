@@ -61,7 +61,7 @@ const OverlayImage = styled(CardContent)`
 `;
 
 const HeaderText = styled(Typography)({
-  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: '40px',
   fontWeight: 700,
   letterSpacing: '0.2px',
@@ -70,7 +70,7 @@ const HeaderText = styled(Typography)({
 });
 
 const ReadMoreText = styled(Typography)({
-  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: '14px',
   fontWeight: 700,
   letterSpacing: '0.2px',
@@ -79,7 +79,7 @@ const ReadMoreText = styled(Typography)({
 });
 
 const ItemsText = styled(Typography)({
-  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: '14px',
   fontWeight: 700,
   letterSpacing: '0.2px',

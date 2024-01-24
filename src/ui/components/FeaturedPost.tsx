@@ -36,7 +36,7 @@ const BlogTitleWrapper = styled(Grid)`
 `;
 
 const BlogTitle = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 14px;
   color: #23a6f0;
@@ -46,7 +46,7 @@ const BlogTitle = styled(Typography)`
 `;
 
 const BlogSubtitle = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 24px;
   color: #252b42;

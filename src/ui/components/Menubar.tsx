@@ -110,7 +110,7 @@ const Brand = styled('div')({
 });
 
 const BrandText = styled(Typography)({
-  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: '24px',
   fontStyle: 'normal',
   fontWeight: 700,
@@ -138,7 +138,7 @@ const NavLinkItem = styled('div')({
 });
 
 const NavLinkText = styled(Typography)({
-  fontFamily: 'Montserrat, Helvetica',
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: '14px',
   fontWeight: 700,
   letterSpacing: '0.20px',
@@ -176,7 +176,7 @@ const ActionButtonText = styled(Typography)({
   position: 'relative',
   width: 'fit-content',
   marginTop: '-1px',
-  fontFamily: 'Montserrat-Bold, Helvetica',
+  fontFamily: "'Montserrat', sans-serif",
   fontSize: '14px',
   fontStyle: 'normal',
   fontWeight: 700,

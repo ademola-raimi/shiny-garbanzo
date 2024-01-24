@@ -14,7 +14,7 @@ const StyledSection = styled(Box)({
 });
 
 const StyledLink = styled(Typography)({
-  fontFamily: "'Montserrat-SemiBold', Helvetica",
+  fontFamily: "'Montserrat', sans-serif",
   fontWeight: "600",
   fontSize: "14px",
   color: "text-secondary-text-color",

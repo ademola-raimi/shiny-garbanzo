@@ -27,7 +27,7 @@ const TitleWrapper = styled(Grid)`
 `;
 
 const Title = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 24px;
   text-align: center;
@@ -37,7 +37,7 @@ const Title = styled(Typography)`
 `;
 
 const Description = styled(Typography)`
-  font-family: 'Montserrat-Regular', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: normal;
   font-size: 16px;
   text-align: center;
@@ -66,7 +66,7 @@ const Icon = styled("img")`
 `;
 
 const FeatureTitle = styled(Typography)`
-  font-family: 'Montserrat-Bold', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 18px;
   text-align: center;
@@ -76,7 +76,7 @@ const FeatureTitle = styled(Typography)`
 `;
 
 const FeatureDescription = styled(Typography)`
-  font-family: 'Montserrat-Regular', Helvetica;
+  font-family: 'Montserrat', sans-serif;
   font-weight: normal;
   font-size: 14px;
   text-align: center;
