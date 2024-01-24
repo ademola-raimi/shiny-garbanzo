@@ -88,7 +88,6 @@ const ContainerWrapper = styled('div')({
   padding: '80px 0',
   maxWidth: '1124px',
   width: '100%',
-  margin: '0 121px 0 195px',
 });
 
 const SectionWrapper = styled('div')({
