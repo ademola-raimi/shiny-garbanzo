@@ -41,7 +41,7 @@ const Home: NextPage = () => {
   }, []); // Fetch products on component mount
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Create Next App</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
