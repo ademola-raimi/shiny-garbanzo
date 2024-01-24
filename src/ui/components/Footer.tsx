@@ -103,7 +103,8 @@ const FooterLink = styled(Typography)`
 `;
 
 const FooterInputContainer = styled('div')`
-  width: 321px;
+  max-width: 321px;
+  width: 100%;
 `;
 
 const FooterInputBackground = styled('div')`
@@ -125,10 +126,12 @@ const FooterInput = styled('input')`
   border: none;
   outline: none;
   background: transparent;
+  width: 100%;
 `;
 
 const SubscribeButton = styled(Button)`
-  width: 117px;
+  max-width: 117px;
+  width: 100%;
   height: 58px;
   background-color: #23a6f0;
   border-radius: 0 5px 5px 0;
