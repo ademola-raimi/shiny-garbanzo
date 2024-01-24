@@ -1,57 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, Grid, Chip } from "@mui/material";
-import { useRouter } from "next/router";
 import styled from "@emotion/styled";
 import { getCurrentPrice } from "../../utils";
+import { useDispatch, useSelector } from '../../store/store';
+import { setCurrentImageIndex } from '../../store/slices/productSlice';
 
 const Product = (): JSX.Element => {
-  const [product, setProduct] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const router = useRouter();
-  const { productId } = router.query;
-
-  console.log(productId);
-
-  const fetchProduct = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`https://dummyjson.com/products/${productId}`);
-      const data = await response.json();
-      setProduct(data);
-      console.log(data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (productId) {
-      fetchProduct();
-    }
-  }, [productId]); // Fetch products on component mount
+  const dispatch = useDispatch();
+  const { product, loading, currentImageIndex } = useSelector((state) => state.product);
 
   const handleChevronClick = (direction) => {
     const lastIndex = product.images.length - 1;
 
-    if (direction === "right") {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === lastIndex ? 0 : prevIndex + 1
-      );
-    } else if (direction === "left") {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === 0 ? lastIndex : prevIndex - 1
-      );
-    }
+    dispatch((dispatch, getState) => {
+      const { currentImageIndex } = getState().product;
+  
+      if (direction === "right") {
+        dispatch(setCurrentImageIndex(
+          currentImageIndex === lastIndex ? 0 : currentImageIndex + 1
+        ));
+      } else if (direction === "left") {
+        dispatch(setCurrentImageIndex(
+          currentImageIndex === 0 ? lastIndex : currentImageIndex - 1
+        ));
+      }
+    });
   };
 
   const handleThumbnailClick = (index) => {
-    setCurrentImageIndex(index);
+    dispatch(setCurrentImageIndex(index));
   };
-
-  console.log(product);
 
   return (
     <StyledContainer>

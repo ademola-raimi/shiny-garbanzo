@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   products: [],
+  bestSellerProduct: [],
   page: 1,
   loading: false,
   limit: 10,
@@ -15,6 +16,9 @@ const productsSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       state.products = [...state.products, ...action.payload];
+    },
+    setBestSellerProducts: (state, action) => {
+      state.bestSellerProduct = action.payload;
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -33,6 +37,7 @@ export const {
   setPage,
   setLoading,
   setHideLoadMore,
+  setBestSellerProducts,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

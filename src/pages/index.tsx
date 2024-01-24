@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 // import Image from 'next/image';
@@ -13,8 +13,33 @@ import Features from '../ui/components/Features';
 import Action from '../ui/components/Action';
 import Testimonials from '../ui/components/Testimonials';
 import Products from '../ui/components/Products';
+import { useDispatch, useSelector } from '../store/store';
+import { setHideLoadMore, setLoading, setPage, setProducts } from '../store/slices/productsSlice';
 
 const Home: NextPage = () => {
+  const dispatch = useDispatch();
+  const { products, page, limit } = useSelector((state) => state.products);
+
+  const fetchProducts = async () => {
+    try {
+      dispatch(setLoading(true));
+      const response = await fetch(`https://dummyjson.com/products?page=${page}&limit=${limit}`);
+      const data = await response.json();
+      const products = data.products || [];
+      if (data.total === products.length) dispatch(setHideLoadMore(true));
+      dispatch(setProducts(products));
+      dispatch(setPage(page + 1));
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []); // Fetch products on component mount
+
   return (
     <div className={styles.container}>
       <Head>
@@ -27,7 +52,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Navbar />
         <BannerCards />
-        <Products />
+        <Products isIndex={true} fetchProducts={fetchProducts} />
         <Features />
         <FeaturedPost />
         <Testimonials />

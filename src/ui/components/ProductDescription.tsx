@@ -1,6 +1,36 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import styled from "@emotion/styled";
+import { useDispatch, useSelector } from '../../store/store';
+
+const ProductDescription = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const { product, loading } = useSelector((state) => state.product);
+
+  return (
+    <StyledContainer>
+      {product && (
+        <StyledContentWrapper>
+          <StyledTextSection>
+            <StyledParagraph>
+              {product.title}
+            </StyledParagraph>
+            <StyledParagraph>
+              {product.description}
+            </StyledParagraph>
+          </StyledTextSection>
+          <StyledImageWrapper>
+            <StyledImageContainer>
+              <StyledLine src="#c4c4c433" alt="Line" />
+              <StyledImage src={product.thumbnail} alt="Unsplash" />
+            </StyledImageContainer>
+          </StyledImageWrapper>
+        </StyledContentWrapper>
+      )}
+    </StyledContainer>
+  );
+};
+
 
 const StyledContainer = styled(Box)({
   display: "inline-flex",
@@ -37,7 +67,6 @@ const StyledParagraph = styled(Typography)({
   fontFamily: "'Montserrat-Regular', Helvetica",
   fontSize: "20px",
   lineHeight: "30px",
-  whiteSpace: "nowrap",
 });
 
 const StyledImageWrapper = styled(Box)({
@@ -70,40 +99,5 @@ const StyledImage = styled("img")({
   top: 0,
   left: 0,
 });
-
-const ProductDescription = (): JSX.Element => {
-  return (
-    <StyledContainer>
-      <StyledContentWrapper>
-        <StyledTextSection>
-          <StyledParagraph>
-            the quick fox jumps over
-          </StyledParagraph>
-          <StyledParagraph>
-            Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM
-            RELIT Mollie. Excitation venial consequent sent nostrum met.
-          </StyledParagraph>
-          <Box display="flex" alignItems="flex-start" gap="24px" position="relative" overflow="hidden">
-            <StyledLine src="line-2.svg" alt="Line" />
-            <StyledParagraph>
-              Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM
-              RELIT Mollie. Excitation venial consequent sent nostrum met.
-            </StyledParagraph>
-          </Box>
-          <StyledParagraph>
-            Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM
-            RELIT Mollie. Excitation venial consequent sent nostrum met.
-          </StyledParagraph>
-        </StyledTextSection>
-        <StyledImageWrapper>
-          <StyledImageContainer>
-            <StyledLine src="#c4c4c433" alt="Line" />
-            <StyledImage src="/icons/unsplash.svg" alt="Unsplash" />
-          </StyledImageContainer>
-        </StyledImageWrapper>
-      </StyledContentWrapper>
-    </StyledContainer>
-  );
-};
 
 export default ProductDescription

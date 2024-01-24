@@ -2,35 +2,13 @@ import React, { useEffect, useState} from "react";
 import { styled } from "@mui/system";
 import Link from 'next/link';
 import { Card, CardContent, Typography, Grid, CardMedia, Box, Button } from "@mui/material";
-// import { useDispatch, useSelector } from 'react-redux';
-import { useDispatch, useSelector } from '../../store/store';
+import { useSelector } from '../../store/store';
 import { setProducts, setPage, setLoading, setHideLoadMore } from '../../store/slices/productsSlice';
 import { getCurrentPrice } from "../../utils";
 
-const Products = (): JSX.Element => {
-  const dispatch = useDispatch();
-  const { products, page, loading, limit, hideLoadMore } = useSelector((state) => state.products);
-
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`https://dummyjson.com/products?page=${page}&limit=${limit}`);
-      const data = await response.json();
-      const _products = data.products || [];
-      console.log(data);
-      if (data.total === products.length) dispatch(setHideLoadMore(true));
-      dispatch(setProducts(_products));
-      dispatch(setPage(page + 1));
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []); // Fetch products on component mount
+const Products = ({ isIndex, fetchProducts }): JSX.Element => {
+  const { products, bestSellerProduct, loading, hideLoadMore } = useSelector((state) => state.products);
+  const _products = isIndex ? products : bestSellerProduct;
 
   const handleLoadMore = () => {
     fetchProducts();
@@ -39,14 +17,14 @@ const Products = (): JSX.Element => {
   return (
     <ContainerWrapper>
       <SectionWrapper>
-        <FeaturedText>Featured Products</FeaturedText>
-        <BestsellerText>BESTSELLER PRODUCTS</BestsellerText>
-        <ParagraphText>
+        <FeaturedText isIndex={isIndex}>Featured Products</FeaturedText>
+        <BestsellerText isIndex={isIndex} >BESTSELLER PRODUCTS</BestsellerText>
+        <ParagraphText isIndex={isIndex}>
           Problems trying to resolve the conflict between
         </ParagraphText>
       </SectionWrapper>
       <Grid container spacing={2}>
-      {products?.map((item) => (
+      {_products?.map((item) => (
         <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
             <Link href={`/products/${item.id}`} passHref>
                 <StyledCard>
@@ -77,7 +55,6 @@ const Products = (): JSX.Element => {
   );
 };
 
-
 const ContainerWrapper = styled("div")({
   display: "flex",
   flexDirection: "column",
@@ -95,30 +72,33 @@ const SectionWrapper = styled("div")({
   gap: "10px",
 });
 
-const FeaturedText = styled("div")({
+const FeaturedText = styled('div')<{ isIndex: boolean }>(({ isIndex }) => ({
   margin: "-1px 0 0",
   fontFamily: "var(--h-4-font-style)",
   fontWeight: "var(--h-4-font-weight)",
   fontSize: "var(--h-4-font-size)",
   color: "var(--second-text-color)",
   textAlign: "center",
-});
+  display: isIndex ? 'block' : 'none',
+}));
 
-const BestsellerText = styled("div")({
+const BestsellerText = styled('div')<{ isIndex: boolean }>(({ isIndex }) => ({
   fontFamily: "var(--h-3-font-style)",
   fontWeight: "var(--h-3-font-weight)",
   fontSize: "var(--h-3-font-size)",
   color: "var(--text-color)",
   textAlign: "center",
-});
+  float: isIndex ? "left" : "none",
+}));
 
-const ParagraphText = styled("p")({
+const ParagraphText = styled('p')<{ isIndex: boolean }>(({ isIndex }) => ({
   fontFamily: "var(--paragraph-font-style)",
   fontWeight: "var(--paragraph-font-weight)",
   fontSize: "var(--paragraph-font-size)",
   color: "var(--second-text-color)",
   textAlign: "center",
-});
+  display: isIndex ? 'block' : 'none',
+}));
 
 const StyledCard = styled(Card)({
     maxWidth: 183,
