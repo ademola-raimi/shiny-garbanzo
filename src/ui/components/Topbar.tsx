@@ -5,7 +5,7 @@ import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 const NavbarContainer = styled(AppBar)`
   background-color: rgba(35, 133, 109, 1);
   overflow: hidden;
-  @media (max-width: 991px) {
+  @media screen and (max-width: 991px) {
     display: none;
   }
 `;
