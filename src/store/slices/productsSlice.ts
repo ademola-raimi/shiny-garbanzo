@@ -59,7 +59,8 @@ const productsSlice = createSlice({
     removeFromCart: (state, action) => {
       //@ts-ignore
       state[action.payload.type] = state[action.payload.type].filter(item => item.id !== action.payload.id);
-      localStorage.setItem(action.payload.type, JSON.stringify(action.payload.type));
+      //@ts-ignore
+      localStorage.setItem(action.payload.type, JSON.stringify(state[action.payload.type]));
     },
 
     incrementQuantity: (state, action) => {
@@ -67,7 +68,8 @@ const productsSlice = createSlice({
       const item = state[action.payload.type].find(item => item.id === action.payload.id);
       if (item && typeof item.quantity === 'number') {
         item.quantity += 1;
-        localStorage.setItem(action.payload.type, JSON.stringify(action.payload.type));
+        //@ts-ignore
+        localStorage.setItem(action.payload.type, JSON.stringify(state[action.payload.type]));
       }
     },
     decrementQuantity: (state, action) => {
@@ -75,7 +77,8 @@ const productsSlice = createSlice({
       const item = state[action.payload.type].find(item => item.id === action.payload.id);
       if (item && typeof item.quantity === 'number'&& item.quantity > 1) {
         item.quantity -= 1;
-        localStorage.setItem(action.payload.type, JSON.stringify(action.payload.type));
+        //@ts-ignore
+        localStorage.setItem(action.payload.type, JSON.stringify(state[action.payload.type]));
       }
     },
   },

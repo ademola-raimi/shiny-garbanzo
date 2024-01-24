@@ -113,12 +113,12 @@ const Product = (): JSX.Element => {
                       )}
                   </StyledAvailability>
                   <StyledParagraph>{""}</StyledParagraph>
-                  <StyledHr alt="Hr" src="hr.svg" />
+                  <StyledHr />
                   <StyledColorOptions>
-                      <StyledColorOption />
-                      <StyledColorOption />
-                      <StyledColorOption />
-                      <StyledColorOption />
+                      <StyledColorOption color="#23A6F0" />
+                      <StyledColorOption color="#2DC071" />
+                      <StyledColorOption color="#E77C40" />
+                      <StyledColorOption color="#252B42" />
                   </StyledColorOptions>
                   <StyledActions>
                       <StyledSelectOptions>
@@ -130,13 +130,11 @@ const Product = (): JSX.Element => {
                   </StyledActions>
               </StyledContainer>
             </StyledText>
-            <StyledButton>
-              {/* Your button content */}
-            </StyledButton>
             <Snackbar
               open={snackbarOpen}
               autoHideDuration={3000}
               onClose={handleSnackbarClose}
+              anchorOrigin={{ vertical: 'bottom', horizontal:  'right'}}
               message="Item added successfully!"
             />
           </StyledImageContainer>
@@ -199,12 +197,6 @@ const StyledImageContainer = styled(Box)({
   gap: "30px",
   flex: "0 0 auto",
 });
-
-// const StyledImage = styled(Box)({
-//   position: "relative",
-//   width: "510px",
-//   height: "550px",
-// });
 
 const StyledProductImage = styled(Box)({
   position: "relative",
@@ -306,13 +298,13 @@ const StyledTitle = styled(Typography)({
     color: "#848484",
   });
   
-  const StyledHr = styled("img")({
+  const StyledHr = styled("hr")({
     position: "absolute",
     width: "445px",
     height: "1px",
     top: "276px",
     left: "25px",
-    objectFit: "cover",
+    background: '#BDBDBD',
   });
   
   const StyledColorOptions = styled(Box)({
@@ -324,12 +316,12 @@ const StyledTitle = styled(Typography)({
     left: "24px",
   });
   
-  const StyledColorOption = styled(Box)({
-    backgroundColor: "var(--primary-color)",
+  const StyledColorOption = styled(Box)<{ color: string }>(({ color }) => ({
+    backgroundColor: color,
     width: "30px",
     height: "30px",
     borderRadius: "15px",
-  });
+  }));
   
   const StyledActions = styled(Box)({
     display: "flex",
@@ -357,7 +349,6 @@ const StyledTitle = styled(Typography)({
     cursor: disabled ? "not-allowed" : "pointer",
     filter: disabled ? "grayscale(100%)" : "none",
     opacity: disabled ? 0.5 : 1,
-
   }));
 
 
