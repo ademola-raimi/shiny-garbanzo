@@ -37,56 +37,45 @@ const Products: React.FC<ProductsProps> = ({
   return (
     <ContainerWrapper>
       <SectionWrapper>
-        <FeaturedText>
-          Featured Products
-        </FeaturedText>
-        <BestsellerText is_index={isIndex.toString()}>
-          BESTSELLER PRODUCTS
-        </BestsellerText>
-        <ParagraphText is_index={isIndex.toString()}>
+        <FeaturedText>Featured Products</FeaturedText>
+        <BestsellerText>BESTSELLER PRODUCTS</BestsellerText>
+        <ParagraphText>
           Problems trying to resolve the conflict between
         </ParagraphText>
       </SectionWrapper>
-      <Grid container gap={'30px'}>
+      <Grid
+        container
+        gap={'30px'}
+        paddingY="8px"
+        paddingX="24px"
+        style={{ maxWidth: '1035px' }}
+      >
         {_products?.map((item) => (
-          <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+          <Grid key={item.id} item xs={12} sm={4} md={3} lg={2}>
             <Link href={`/products/${item.id}`} passHref>
               <StyledCard>
                 <StyledCardMedia image={`${item.thumbnail}`} />
-                <CardContent
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 10,
-                    paddingTop: 25,
-                    paddingBottom: 35,
-                    paddingLeft: 25,
-                    position: 'relative',
-                    width: '100%',
-                    flex: '0 0 auto',
-                  }}
-                >
-                  <StyledTypography variant="h5">{item.title}</StyledTypography>
+                <StyledCardContent>
+                  <Title variant="h5">{item.title}</Title>
                   <StyledLink variant="subtitle1">{item.category}</StyledLink>
                   <StyledPrice>
-                    <Typography variant="h5" style={{ color: 'grey' }}>
+                    <Price variant="h5" style={{ color: 'grey' }}>
                       ${item.price}
-                    </Typography>
-                    <Typography variant="h5" style={{ color: 'blue' }}>
+                    </Price>
+                    <Price variant="h5" style={{ color: 'blue' }}>
                       ${getCurrentPrice(item.price, item.discountPercentage)}
-                    </Typography>
+                    </Price>
                   </StyledPrice>
-                </CardContent>
+                </StyledCardContent>
               </StyledCard>
             </Link>
           </Grid>
         ))}
       </Grid>
       {!hideLoadMore && (
-        <Button variant="outlined" onClick={handleLoadMore} disabled={loading}>
+        <LoadMoreButtton variant="outlined" onClick={handleLoadMore} disabled={loading}>
           LOAD MORE PRODUCTS
-        </Button>
+        </LoadMoreButtton>
       )}
     </ContainerWrapper>
   );
@@ -100,7 +89,7 @@ const ContainerWrapper = styled('div')({
   padding: '80px 0',
   maxWidth: '1124px',
   width: '100%',
-  margin: '0 auto',
+  margin: '0 121px 0 195px',
 });
 
 const SectionWrapper = styled('div')({
@@ -112,38 +101,41 @@ const SectionWrapper = styled('div')({
 });
 
 const FeaturedText = styled(Typography)`
-  font-family: "'Montserrat', sans-serif";
+  font-family: 'Montserrat', sans-serif;
   font-size: 20px;
   font-weight: 400;
   letter-spacing: 0.2px;
   line-height: 30px;
   color: #737373;
-  text-align: ;center;
+  text-align: center;
   @media screen and (max-width: 767px) {
     display: none;
   }
 `;
 
-const BestsellerText = styled('div')<{ is_index: string }>(({ is_index }) => ({
-  fontFamily: 'var(--h-3-font-style)',
-  fontWeight: 'var(--h-3-font-weight)',
-  fontSize: 'var(--h-3-font-size)',
-  color: 'var(--text-color)',
-  textAlign: 'center',
-  float: !!is_index ? 'left' : 'none',
-}));
+const BestsellerText = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.1px;
+  color: #252b42;
+  text-align: center;
+`;
 
-const ParagraphText = styled('p')<{ is_index: string }>(({ is_index }) => ({
-  fontFamily: 'var(--paragraph-font-style)',
-  fontWeight: 'var(--paragraph-font-weight)',
-  fontSize: 'var(--paragraph-font-size)',
-  color: 'var(--second-text-color)',
-  textAlign: 'center',
-  display: !!is_index ? 'block' : 'none',
-}));
+const ParagraphText = styled(Typography)`
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #737373;
+  text-align: center;
+`;
 
 const StyledCard = styled(Card)({
-  maxWidth: 183,
+  // maxWidth: 183,
   margin: '0 10px',
   cursor: 'pointer',
   boxShadow: 'none',
@@ -154,13 +146,32 @@ const StyledCardMedia = styled(CardMedia)({
   backgroundSize: 'cover',
 });
 
-const StyledTypography = styled(Typography)({
-  marginTop: -1,
+const StyledCardContent = styled(CardContent)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 10,
+  paddingTop: 25,
+  paddingBottom: 35,
+  paddingLeft: 25,
+  flex: '0 0 auto',
+  textAlign: 'center',
+});
+
+const Title = styled(Typography)({
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: '16px',
+  fontWeight: '700',
+  lineHeight: '24px',
+  letterSpacing: '0.1px',
 });
 
 const StyledLink = styled(Typography)({
-  marginLeft: -6.5,
-  marginRight: -6.5,
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: '14px',
+  fontWeight: '700',
+  lineHeight: '24px',
+  letterSpacing: '0.2px',
 });
 
 const StyledPrice = styled(Box)({
@@ -169,6 +180,24 @@ const StyledPrice = styled(Box)({
   alignItems: 'center',
   gap: 5,
   padding: '3px 5px',
+});
+
+const Price = styled(Typography)({
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: '16px',
+  fontWeight: '700',
+  lineHeight: '24px',
+  letterSpacing: '0.1px',
+});
+
+const LoadMoreButtton = styled(Button)({
+  fontFamily: "'Montserrat', sans-serif",
+  fontSize: '14px',
+  fontWeight: '700',
+  lineHeight: '22px',
+  letterSpacing: '0.2px',
+  color: '#23A6F0',
+  border: '1px solid #23A6F0'
 });
 
 export default Products;

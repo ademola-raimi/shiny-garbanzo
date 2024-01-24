@@ -22,8 +22,8 @@ const SectionContainer = styled("div")`
   align-items: center;
   gap: 36px;
   position: relative;
-  padding: 24px; /* Add padding to see the effect of the background color */
-  border-radius: 8px; /* Optional: Add border-radius for a rounded look */
+  padding: 24px;
+  border-radius: 8px;
 `;
 
 const Title = styled(Typography)`
