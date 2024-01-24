@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
-import { Typography, Button, IconButton } from '@mui/material';
+import { Typography, Button, IconButton, List, ListItem } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SearchIcon from '@mui/icons-material/Search';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from '../../store/store';
 import Modal from './Modal';
@@ -39,36 +42,7 @@ const Menubar = (): JSX.Element => {
       <Brand>
         <BrandText>Bandage</BrandText>
       </Brand>
-      <MobileMenuToggle onClick={handleMobileMenuToggle}>
-        <MenuIcon />
-      </MobileMenuToggle>
-      <NavLinksContainer mobileMenuOpen={isMobileMenuOpen}>
-        <NavLink>
-          <Link href="/">
-            <NavLinkItem style={{ cursor: 'pointer' }}>
-              <NavLinkText>Home</NavLinkText>
-            </NavLinkItem>
-          </Link>
-          <NavLinkItem>
-            <NavLinkText style={{ fontWeight: 500, color: '#252B42' }}>
-              Shop
-              <ExpandMoreIcon />
-            </NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>About</NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>Blog</NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>Contact</NavLinkText>
-          </NavLinkItem>
-          <NavLinkItem>
-            <NavLinkText>Pages</NavLinkText>
-          </NavLinkItem>
-        </NavLink>
-        <ActionButtons>
+      <ActionButtons>
           <ActionButton>
             <AvatarIcon alt="Avatar icn" src="/icons/avatar.svg" />
             <ActionButtonText>Login / Register</ActionButtonText>
@@ -85,7 +59,83 @@ const Menubar = (): JSX.Element => {
             <ActionButtonText>{wishlistItems.length}</ActionButtonText>
           </ActionButton>
         </ActionButtons>
-      </NavLinksContainer>
+      <MobileMenuToggle onClick={handleMobileMenuToggle}>
+        <MenuIcon />
+      </MobileMenuToggle>
+      {isMobileMenuOpen ? (
+        <NavLinksContainer mobileMenuOpen={isMobileMenuOpen}>
+          <List>
+            <ListItem>
+              <Link href="/">
+                <NavLinkText onClick={closeMobileMenu}>Home</NavLinkText>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link href="">
+                <NavLinkText onClick={closeMobileMenu}>Shop</NavLinkText>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link href="/">
+                <NavLinkText onClick={closeMobileMenu}>About</NavLinkText>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link href="/">
+                <NavLinkText onClick={closeMobileMenu}>Blog</NavLinkText>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link href="/">
+                <NavLinkText onClick={closeMobileMenu}>Contact</NavLinkText>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link href="/">
+                <NavLinkText onClick={closeMobileMenu}>Pages</NavLinkText>
+              </Link>
+            </ListItem>
+          </List>
+        </NavLinksContainer>
+      ) : (
+        <NavLinksContainerDesktop>
+          <NavLink>
+            <Link href="/">
+              <NavLinkItem>
+                <NavLinkText >Home</NavLinkText>
+              </NavLinkItem>
+            </Link>
+            <Link href="/">
+              <NavLinkItem>
+                <NavLinkText style={{ fontWeight: 500, color: '#252B42' }}>
+                  Shop
+                  <ExpandMoreIcon />
+                </NavLinkText>
+              </NavLinkItem>
+            </Link>
+            <Link href="/">
+              <NavLinkItem>
+                <NavLinkText>About</NavLinkText>
+              </NavLinkItem>
+            </Link>
+            <Link href="/">
+              <NavLinkItem>
+                <NavLinkText>Blog</NavLinkText>
+              </NavLinkItem>
+            </Link>
+            <Link href="/">
+              <NavLinkItem>
+                <NavLinkText>Contact</NavLinkText>
+              </NavLinkItem>
+            </Link>
+            <Link href="/">
+              <NavLinkItem>
+                <NavLinkText>Pages</NavLinkText>
+              </NavLinkItem>
+            </Link>
+          </NavLink>
+        </NavLinksContainerDesktop>
+      )}
       <Modal
         open={isCartOpen}
         handleToggle={handleCartToggle}
@@ -114,6 +164,16 @@ const StyledNavbarLight = styled('div')({
     flexDirection: 'column',
     padding: '16px',
     alignItems: 'flex-start',
+  },
+});
+
+const NavLinksContainerDesktop = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+  '@media (max-width: 768px)': {
+    display: 'none',
   },
 });
 
