@@ -10,7 +10,7 @@ import Logos from '../../ui/components/Logos';
 import ProductDescription from '../../ui/components/ProductDescription';
 import Divider from '../../ui/components/Divider';
 import { useDispatch, useSelector } from '../../store/store';
-import { setProduct, setLoading } from '../../store/slices/productSlice';
+import { setProduct, setLoading, setCurrentImageIndex } from '../../store/slices/productSlice';
 import { setHideLoadMore, setBestSellerProducts } from '../../store/slices/productsSlice';
 
 const ProductPage = () => {
@@ -49,8 +49,9 @@ const ProductPage = () => {
   
   useEffect(() => {
     if (productId) {
+      dispatch(setCurrentImageIndex(0));
       fetchProduct();
-    }
+    }    
   }, [productId]); // Fetch products on component mount
 
   useEffect(() => {

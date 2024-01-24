@@ -31,15 +31,15 @@ const _Modal: React.FC<ModalProps> = ({ open, handleToggle, items, title }) => {
     const dispatch = useDispatch();
 
     const handleIncrement = (itemId: number) => {
-        dispatch(incrementQuantity(itemId));
+        dispatch(incrementQuantity({id: itemId, type: title === "Cart" ? "basket" : "wishlist"}));
     };
 
     const handleDecrement = (itemId: number) => {
-        dispatch(decrementQuantity(itemId));
+        dispatch(decrementQuantity({id: itemId, type: title === "Cart" ? "basket" : "wishlist"}));
     };
 
     const handleDelete = (itemId: number) => {
-        dispatch(removeFromCart(itemId));
+        dispatch(removeFromCart({id: itemId, type: title === "Cart" ? "basket" : "wishlist"}));
     };
 
     return (
@@ -70,7 +70,7 @@ const _Modal: React.FC<ModalProps> = ({ open, handleToggle, items, title }) => {
                                         <AddIcon />
                                     </IconButton>
                                     <Typography variant="body2" sx={{ ml: 1 }}>
-                                        ${Number(getCurrentPrice(item?.price, item?.discountPercentage) ?? 0) * (item?.quantity ?? 0)}
+                                        ${(Number(getCurrentPrice(item?.price, item?.discountPercentage) ?? 0) * (item?.quantity ?? 0)).toFixed(2)}
                                     </Typography>
                                     <IconButton size="small" onClick={() => handleDelete(item.id)}>
                                         <DeleteIcon />

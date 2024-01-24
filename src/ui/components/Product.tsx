@@ -29,7 +29,7 @@ const Product = (): JSX.Element => {
     if (isInWishlist || !product) return;
     const productCopy: ProductType  = {...product};
     productCopy.quantity = 1;
-    dispatch(addToWishlist(product));
+    dispatch(addToWishlist(productCopy));
     setSnackbarOpen(true);
   };
 

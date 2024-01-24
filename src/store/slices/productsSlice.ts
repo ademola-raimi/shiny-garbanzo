@@ -57,22 +57,25 @@ const productsSlice = createSlice({
       localStorage.setItem('wishlist', JSON.stringify(state.wishlist));
     },
     removeFromCart: (state, action) => {
-      state.basket = state.basket.filter(item => item.id !== action.payload);
-      localStorage.setItem('basket', JSON.stringify(state.basket));
+      //@ts-ignore
+      state[action.payload.type] = state[action.payload.type].filter(item => item.id !== action.payload.id);
+      localStorage.setItem(action.payload.type, JSON.stringify(action.payload.type));
     },
 
     incrementQuantity: (state, action) => {
-      const item = state.basket.find(item => item.id === action.payload);
+      //@ts-ignore
+      const item = state[action.payload.type].find(item => item.id === action.payload.id);
       if (item && typeof item.quantity === 'number') {
         item.quantity += 1;
-        localStorage.setItem('basket', JSON.stringify(state.basket));
+        localStorage.setItem(action.payload.type, JSON.stringify(action.payload.type));
       }
     },
     decrementQuantity: (state, action) => {
-      const item = state.basket.find(item => item.id === action.payload);
+      //@ts-ignore
+      const item = state[action.payload.type].find(item => item.id === action.payload.id);
       if (item && typeof item.quantity === 'number'&& item.quantity > 1) {
         item.quantity -= 1;
-        localStorage.setItem('basket', JSON.stringify(state.basket));
+        localStorage.setItem(action.payload.type, JSON.stringify(action.payload.type));
       }
     },
   },
