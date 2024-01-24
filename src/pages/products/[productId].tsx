@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-// import Image from 'next/image';
-// import Card from '../ui/components/Card';
 import styles from '../../styles/Home.module.css';
-// import UserCard from '../ui/home/UserCard';
 import Navbar from '../../ui/components/Navbar';
 import Footer from '../../ui/components/Footer';
 import Product from '../../ui/components/Product';

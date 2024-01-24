@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Backdrop, Modal, Fade, Box, Typography, Button, IconButton } from '@mui/material';
+import { useDispatch } from "react-redux";
+import { Modal, Box, Typography, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { styled } from '@mui/system';
 import { removeFromCart, incrementQuantity, decrementQuantity } from '../../store/slices/productsSlice';
 import { getCurrentPrice } from "../../utils";
+import { ProductsType } from '../../types';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -20,18 +20,25 @@ const style = {
     p: 4,
 };
 
-const _Modal = ({ open, handleToggle, items, title }) => {
+interface ModalProps {
+    open: boolean;
+    handleToggle: () => void;
+    items: ProductsType; // Replace YourItemType with the type of your items
+    title: string;
+}
+
+const _Modal: React.FC<ModalProps> = ({ open, handleToggle, items, title }) => {
     const dispatch = useDispatch();
 
-    const handleIncrement = (itemId) => {
+    const handleIncrement = (itemId: number) => {
         dispatch(incrementQuantity(itemId));
     };
 
-    const handleDecrement = (itemId) => {
+    const handleDecrement = (itemId: number) => {
         dispatch(decrementQuantity(itemId));
     };
 
-    const handleDelete = (itemId) => {
+    const handleDelete = (itemId: number) => {
         dispatch(removeFromCart(itemId));
     };
 

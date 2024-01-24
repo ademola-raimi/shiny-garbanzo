@@ -3,12 +3,17 @@ import { styled } from "@mui/system";
 import Link from 'next/link';
 import { Card, CardContent, Typography, Grid, CardMedia, Box, Button } from "@mui/material";
 import { useSelector } from '../../store/store';
-import { setProducts, setPage, setLoading, setHideLoadMore } from '../../store/slices/productsSlice';
 import { getCurrentPrice } from "../../utils";
+import { ProductsType } from '../../types';
 
-const Products = ({ isIndex, fetchProducts }): JSX.Element => {
+interface ProductsProps {
+  isIndex: boolean;
+  fetchProducts: () => void;
+}
+
+const Products: React.FC<ProductsProps> = ({ isIndex, fetchProducts }): JSX.Element => {
   const { products, bestSellerProduct, loading, hideLoadMore } = useSelector((state) => state.products);
-  const _products = isIndex ? products : bestSellerProduct;
+  const _products: ProductsType = isIndex ? products : bestSellerProduct;
 
   const handleLoadMore = () => {
     fetchProducts();
@@ -103,7 +108,7 @@ const ParagraphText = styled('p')<{ is_index: string }>(({ is_index }) => ({
 const StyledCard = styled(Card)({
     maxWidth: 183,
     margin: "0 10px",
-    // backgroundColor: "lightblue",
+    cursor: "pointer",
     boxShadow: "none",
   });
   

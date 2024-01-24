@@ -5,20 +5,21 @@ import { getCurrentPrice } from "../../utils";
 import { useDispatch, useSelector } from '../../store/store';
 import { setCurrentImageIndex } from '../../store/slices/productSlice';
 import { addToBasket, addToWishlist } from '../../store/slices/productsSlice';
+import { RootType, ProductType } from '../../types';
 
 const Product = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { product, loading, currentImageIndex } = useSelector((state) => state.product);
+  const { product, loading, currentImageIndex } = useSelector((state) => (state.product));
   const { basket, wishlist } = useSelector((state) => state.products);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Check if the product is in the basket or wishlist
-  const isInBasket = basket.some((item) => item.id === product?.id) || false;
-  const isInWishlist = wishlist.some((item) => item.id === product?.id) || false;
+  const isInBasket = basket.some((item: ProductType) => item.id === product?.id) || false;
+  const isInWishlist = wishlist.some((item: ProductType) => item.id === product?.id) || false;
 
   const handleAddToBasket = () => {
     if (isInBasket) return;
-    const productCopy = {...product};
+    const productCopy: ProductType | null  = {...product};
     productCopy.quantity = 1;
     dispatch(addToBasket(productCopy));
     setSnackbarOpen(true);
@@ -26,7 +27,7 @@ const Product = (): JSX.Element => {
 
   const handleAddToWishlist = () => {
     if (isInWishlist) return;
-    const productCopy = {...product};
+    const productCopy: ProductType  = {...product};
     productCopy.quantity = 1;
     dispatch(addToWishlist(product));
     setSnackbarOpen(true);

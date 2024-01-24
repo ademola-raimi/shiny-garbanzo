@@ -12,7 +12,6 @@ import {
  */
 export const store = configureStore({
   reducer: {
-    user: userSlice,
     products: productsSlice,
     product: productSlice,
   },

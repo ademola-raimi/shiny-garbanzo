@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
-import { Typography, Button, Drawer } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector } from '../../store/store';
 import Modal from './Modal';
+import Link from 'next/link';
 
 
 const Menubar = (): JSX.Element => {
@@ -27,9 +28,11 @@ const Menubar = (): JSX.Element => {
       </Brand>
       <NavLinksContainer>
         <NavLink>
-          <NavLinkItem>
-            <NavLinkText>Home</NavLinkText>
-          </NavLinkItem>
+          <Link href="/">
+            <NavLinkItem style={{ cursor: 'pointer' }}>
+              <NavLinkText >Home</NavLinkText>
+            </NavLinkItem>
+          </Link>
           <NavLinkItem>
             <NavLinkText style={{ fontWeight: 500, color: '#252B42' }}>
               Shop
@@ -60,14 +63,14 @@ const Menubar = (): JSX.Element => {
           <ActionButton>
             <ActionButtonIcon alt="Li" src="/icons/search.svg" />
           </ActionButton>
-          <ActionButton onClick={handleCartToggle}>
+          <ActionButton onClick={handleCartToggle} style={{ cursor: 'pointer' }}>
             <ActionButtonIcon
               alt="basket icn"
               src="/icons/basket.svg"
             />
             <ActionButtonText>{basketItems.length}</ActionButtonText>
           </ActionButton>
-          <ActionButton onClick={handleWishlistToggle}>
+          <ActionButton onClick={handleWishlistToggle} style={{ cursor: 'pointer' }}>
             <ActionButtonIcon alt="love icn" src="/icons/love.svg" />
             <ActionButtonText>{wishlistItems.length}</ActionButtonText>
           </ActionButton>

@@ -1,5 +1,6 @@
 // reducers/products.js
 import { createSlice } from '@reduxjs/toolkit';
+import { ProductsType } from "../../types";
 
 // Load basket and wishlist from localStorage
 const initialBasket = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('basket')) || [] : [];
