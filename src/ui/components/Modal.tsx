@@ -6,7 +6,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { removeFromCart, incrementQuantity, decrementQuantity } from '../../store/slices/productsSlice';
 import { getCurrentPrice } from "../../utils";
-import { ProductsType } from '../../types';
+import { ProductType, ProductsType } from '../../types';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -42,6 +42,11 @@ const _Modal: React.FC<ModalProps> = ({ open, handleToggle, items, title }) => {
         dispatch(removeFromCart({id: itemId, type: title === "Cart" ? "basket" : "wishlist"}));
     };
 
+    const totalAmount = items.reduce((acc: number, item: ProductType) => {
+        const amount = Number(getCurrentPrice(item?.price, item?.discountPercentage) ?? 0) * (item?.quantity ?? 0);
+        return acc + amount;
+    }, 0);    
+
     return (
         <Modal
             open={open}
@@ -53,7 +58,7 @@ const _Modal: React.FC<ModalProps> = ({ open, handleToggle, items, title }) => {
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                     {title}
                 </Typography>
-                <Box sx={{ mt: 2 }}>
+                <Box sx={{ mt: 2, maxHeight: '400px', overflowY: 'auto' }}>
                     {items && items.length > 0 ? 
                         items.map(item => (
                             <Box key={item.id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
@@ -81,6 +86,11 @@ const _Modal: React.FC<ModalProps> = ({ open, handleToggle, items, title }) => {
                             <p>No item in the {title}</p>
                         )
                     }
+                </Box>
+                <hr></hr>
+                <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div>Total Amount: </div>
+                    <Typography>${totalAmount.toFixed(2)}</Typography>
                 </Box>
             </Box>
         </Modal>
