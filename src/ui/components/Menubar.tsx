@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, IconButton } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useSelector } from '../../store/store';
 import Modal from './Modal';
 import Link from 'next/link';
@@ -10,15 +11,27 @@ import Link from 'next/link';
 const Menubar = (): JSX.Element => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [isWishlistOpen, setWishlistOpen] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const basketItems = useSelector((state) => state.products.basket);
   const wishlistItems = useSelector((state) => state.products.wishlist);
 
   const handleCartToggle = () => {
     setCartOpen(!isCartOpen);
+    closeMobileMenu();
   };
+
   const handleWishlistToggle = () => {
     setWishlistOpen(!isWishlistOpen);
+    closeMobileMenu();
+  };
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -26,11 +39,14 @@ const Menubar = (): JSX.Element => {
       <Brand>
         <BrandText>Bandage</BrandText>
       </Brand>
-      <NavLinksContainer>
+      <MobileMenuToggle onClick={handleMobileMenuToggle}>
+        <MenuIcon />
+      </MobileMenuToggle>
+      <NavLinksContainer mobileMenuOpen={isMobileMenuOpen}>
         <NavLink>
           <Link href="/">
             <NavLinkItem style={{ cursor: 'pointer' }}>
-              <NavLinkText >Home</NavLinkText>
+              <NavLinkText>Home</NavLinkText>
             </NavLinkItem>
           </Link>
           <NavLinkItem>
@@ -54,20 +70,14 @@ const Menubar = (): JSX.Element => {
         </NavLink>
         <ActionButtons>
           <ActionButton>
-            <AvatarIcon
-              alt="Avatar icn"
-              src="/icons/avatar.svg"
-            />
+            <AvatarIcon alt="Avatar icn" src="/icons/avatar.svg" />
             <ActionButtonText>Login / Register</ActionButtonText>
           </ActionButton>
           <ActionButton>
             <ActionButtonIcon alt="Li" src="/icons/search.svg" />
           </ActionButton>
           <ActionButton onClick={handleCartToggle} style={{ cursor: 'pointer' }}>
-            <ActionButtonIcon
-              alt="basket icn"
-              src="/icons/basket.svg"
-            />
+            <ActionButtonIcon alt="basket icn" src="/icons/basket.svg" />
             <ActionButtonText>{basketItems.length}</ActionButtonText>
           </ActionButton>
           <ActionButton onClick={handleWishlistToggle} style={{ cursor: 'pointer' }}>
@@ -92,7 +102,6 @@ const Menubar = (): JSX.Element => {
   );
 };
 
-
 const StyledNavbarLight = styled('div')({
   maxWidth: '1440px',
   width: '100%',
@@ -101,7 +110,44 @@ const StyledNavbarLight = styled('div')({
   alignItems: 'center',
   padding: '0 16px 0 38px',
   marginTop: '12px',
+  '@media (max-width: 768px)': {
+    flexDirection: 'column',
+    padding: '16px',
+    alignItems: 'flex-start',
+  },
 });
+
+const MobileMenuToggle = styled(IconButton)({
+  display: 'none',
+  '@media (max-width: 768px)': {
+    display: 'block',
+    position: 'absolute',
+    top: '16px',
+    right: '16px',
+  },
+});
+
+
+const NavLinksContainer = styled('div')<{ mobileMenuOpen: boolean }>((props) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+  flexDirection: props.mobileMenuOpen ? 'column' : 'row',
+  position: 'relative',
+  '@media (max-width: 768px)': {
+    flexDirection: 'column',
+    position: 'absolute',
+    top: '70px',
+    left: '0',
+    width: '100%',
+    background: 'white',
+    boxShadow: '0px 8px 16px rgba(37, 43, 66, 0.04)',
+    borderRadius: '8px',
+    zIndex: 1000,
+    display: props.mobileMenuOpen ? 'flex' : 'none',
+  },
+}));
 
 const Brand = styled('div')({
   width: '187px',
@@ -117,13 +163,6 @@ const BrandText = styled(Typography)({
   letterSpacing: '0.10000000149011612px',
   lineHeight: '32px',
   color: 'rgba(37, 43, 66, 1)',
-});
-
-const NavLinksContainer = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
 });
 
 const NavLink = styled('div')({
